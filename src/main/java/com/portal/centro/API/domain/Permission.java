@@ -2,8 +2,7 @@ package com.portal.centro.API.domain;
 
 import com.portal.centro.API.enums.PermissionType;
 import com.portal.centro.API.generic.IObject;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +13,10 @@ public class Permission extends IObject {
     @Setter
     @Column(name = "description")
     String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @Getter
     @Setter

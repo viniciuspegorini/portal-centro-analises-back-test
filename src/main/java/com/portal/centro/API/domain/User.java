@@ -38,7 +38,6 @@ public class User extends IModel {
     @Setter
     String email;
 
-    @Column(name = "role")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
