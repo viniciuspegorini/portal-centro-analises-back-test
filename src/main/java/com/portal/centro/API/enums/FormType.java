@@ -1,11 +1,11 @@
 package com.portal.centro.API.enums;
 
-public enum Type {
+public enum FormType {
     BASE("base");
 
     private String content;
 
-    private Type (String content) {
+    private FormType(String content) {
         this.content = content;
     }
 

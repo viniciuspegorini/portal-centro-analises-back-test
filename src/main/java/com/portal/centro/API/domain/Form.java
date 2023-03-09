@@ -1,7 +1,7 @@
 package com.portal.centro.API.domain;
 
-import com.portal.centro.API.enums.Role;
-import com.portal.centro.API.enums.Type;
+import com.portal.centro.API.enums.RoleType;
+import com.portal.centro.API.enums.FormType;
 import com.portal.centro.API.generic.IModel;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,10 +34,10 @@ public class Form extends IModel {
     @Enumerated
     @Getter
     @Setter
-    Type type;
+    FormType type;
 
     @Column(name = "role")
     @Enumerated
     @Setter
-    private Role role;
+    private RoleType role;
 }
