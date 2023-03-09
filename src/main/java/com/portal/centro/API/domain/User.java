@@ -22,21 +22,21 @@ public class User extends IModel {
     @Getter
     @Setter
     @Size(min = 6, max = 20)
-    String username;
+    private String username;
 
     @Column(name = "password")
     @Getter
     @Setter
     @NotNull
     @Size(min = 8, max = 100)
-    String password;
+    private String password;
 
     @Column(name = "email")
     @NotNull
     @Email
     @Getter
     @Setter
-    String email;
+    private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")

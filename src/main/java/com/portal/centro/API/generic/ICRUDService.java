@@ -3,11 +3,11 @@ package com.portal.centro.API.generic;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class ICRUDService <K>{
+public abstract class ICRUDService <K, N, R>{
 
-    public abstract List<K> getAll(String username);
-    public abstract Optional<K> getById(Long id);
-    public abstract K add(K model);
+    public abstract List<R> getAll(String username);
+    public abstract Optional<R> getById(Long id);
+    public abstract R add(K model);
     public abstract void delete(Long id);
-    public abstract K update(K model, Long id);
+    public abstract R update(K model, Long id);
 }
