@@ -19,22 +19,21 @@ public class Form extends IModel {
     @Getter
     @Setter
     @Size(min = 6, max = 20)
-    String content;
+    private String content;
 
     @Column(name = "subject")
     @Getter
     @Setter
     @NotNull
     @Size(min = 5, max = 100)
-    String subject;
-
+    private String subject;
 
     @Column(name = "type")
     @NotNull
     @Enumerated
     @Getter
     @Setter
-    FormType type;
+    private FormType type;
 
     @Column(name = "role")
     @Enumerated

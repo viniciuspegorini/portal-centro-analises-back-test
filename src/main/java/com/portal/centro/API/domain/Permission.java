@@ -12,7 +12,7 @@ public class Permission extends IObject {
     @Getter
     @Setter
     @Column(name = "description")
-    String description;
+    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
@@ -21,5 +21,5 @@ public class Permission extends IObject {
     @Getter
     @Setter
     @Column(name = "type")
-    PermissionType permissionType;
+    private PermissionType permissionType;
 }
