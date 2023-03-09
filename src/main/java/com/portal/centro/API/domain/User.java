@@ -1,6 +1,5 @@
 package com.portal.centro.API.domain;
 
-import com.portal.centro.API.enums.Role;
 import com.portal.centro.API.generic.IModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -32,7 +31,6 @@ public class User extends IModel {
     @Size(min = 8, max = 100)
     String password;
 
-
     @Column(name = "email")
     @NotNull
     @Email
@@ -41,7 +39,7 @@ public class User extends IModel {
     String email;
 
     @Column(name = "role")
-    @Enumerated
-    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
     private Role role;
 }
