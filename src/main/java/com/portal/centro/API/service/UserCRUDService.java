@@ -5,6 +5,7 @@ import com.portal.centro.API.dto.user.UserRequest;
 import com.portal.centro.API.dto.user.UserResponse;
 import com.portal.centro.API.generic.ICRUDService;
 import com.portal.centro.API.handler.ObjectInvalidException;
+import com.portal.centro.API.handler.ResourceNotFound;
 import com.portal.centro.API.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +41,7 @@ public class UserCRUDService extends ICRUDService<UserRequest, User, UserRespons
     }
 
     @Override
-    public Optional<UserResponse> getById(Long id) {
+    public Optional<UserResponse> getById(UUID id) {
         log.info("Trying to find user...");
         Optional<User> user = userRepository.findById(id);
 
@@ -64,10 +66,19 @@ public class UserCRUDService extends ICRUDService<UserRequest, User, UserRespons
     }
 
     @Override
-    public void delete(Long id) {}
+    public void delete(UUID id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if(user.isEmpty()){
+            throw new ResourceNotFound("User not found!");
+        }
+        log.info("Deleting user...");
+
+        userRepository.deleteById(id);
+    }
 
     @Override
-    public UserResponse update(UserRequest model, Long id) {
+    public UserResponse update(UserRequest model, UUID id) {
         return null;
     }
 }
