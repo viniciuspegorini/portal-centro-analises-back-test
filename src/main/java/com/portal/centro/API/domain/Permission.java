@@ -2,9 +2,10 @@ package com.portal.centro.API.domain;
 
 import com.portal.centro.API.enums.PermissionType;
 import com.portal.centro.API.generic.IObject;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity(name = "permission")
 public class Permission extends IObject {

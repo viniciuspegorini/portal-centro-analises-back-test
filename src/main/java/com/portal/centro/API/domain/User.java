@@ -1,11 +1,12 @@
 package com.portal.centro.API.domain;
 
 import com.portal.centro.API.generic.IModel;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity(name = "_user")
 @Table(uniqueConstraints = {

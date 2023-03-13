@@ -5,7 +5,6 @@ import com.portal.centro.API.handler.UserNotFound;
 import com.portal.centro.API.security.AuthService;
 import com.portal.centro.API.security.JwtTokenService;
 import com.portal.centro.API.service.UserCRUDService;
-import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 
 @RestController
