@@ -2,7 +2,7 @@ FROM maven:3.6.3 AS maven
 LABEL MAINTAINER="marcelonavarro11md@gmail.com"
 
 WORKDIR /usr/src/app
-COPY . /usr/src/app
+COPY .. /usr/src/app
 
 RUN mvn package
 
