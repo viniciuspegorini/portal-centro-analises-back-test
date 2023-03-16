@@ -1,5 +1,6 @@
 package com.portal.centro.API.domain;
 
+import com.portal.centro.API.generic.IModel;
 import com.portal.centro.API.generic.IObject;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity(name = "role")
-public class Role extends IObject {
+public class Role extends IModel {
 
     @Getter
     @Setter
