@@ -1,18 +1,6 @@
-FROM maven:3.6.3 AS maven
+FROM openjdk:8-jdk-alpine
 LABEL MAINTAINER="marcelonavarro11md@gmail.com"
-
-WORKDIR /usr/src/app
-COPY ./usr/src/app
-
-RUN mvn package
-
-FROM openjdk:17-alpine
-
-ARG JAR_FILE=spring-boot-api-tutorial.jar
-
-WORKDIR /opt/app
-
-# Copy the spring-boot-api-tutorial.jar from the maven stage to the /opt/app directory of the current stage.
-COPY --from=maven /usr/src/app/target/${JAR_FILE} /opt/app/
-
-ENTRYPOINT ["java","-jar","utfprapps-api.jar"]
+EXPOSE 8080
+ARG JAR_FILE=target/demo-app-1.0.0.jar
+ADD ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]

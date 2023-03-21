@@ -9,6 +9,14 @@ volumes:
   grafana_data:
 
 services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: portal_centro
+    ports:
+      - "5432:5432"
   prometheus:
     image: prom/prometheus:latest
     volumes:
