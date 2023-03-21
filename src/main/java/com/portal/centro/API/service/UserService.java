@@ -1,6 +1,8 @@
-package com.portal.centro.API.user;
+package com.portal.centro.API.service;
 
 import com.portal.centro.API.generic.crud.GenericService;
+import com.portal.centro.API.repository.UserRepository;
+import com.portal.centro.API.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
