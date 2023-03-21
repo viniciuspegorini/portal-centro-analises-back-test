@@ -68,14 +68,14 @@ services:
     ports:
       - "5601:5601"
     environment:
-      ELASTICSEARCH_HOSTS: '["http://172.17.0.1:9200/"]'
+      ELASTICSEARCH_HOSTS: '["http://host.docker.internal:9200/"]'
     depends_on:
       - elasticsearch
   zabbix-server:
     image: zabbix/zabbix-server-pgsql:trunk-ubuntu
     restart: always
     environment:
-      DB_SERVER_HOST: 172.17.0.1
+      DB_SERVER_HOST: host.docker.internal
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_DB: portal_centro
@@ -88,7 +88,7 @@ services:
     image: zabbix/zabbix-web-nginx-pgsql:trunk-ubuntu
     restart: always
     environment:
-      DB_SERVER_HOST: 172.17.0.1
+      DB_SERVER_HOST: host.docker.internal
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_DB: portal_centro
@@ -112,4 +112,4 @@ services:
       - '10053:10053'
     environment:
       - ZBX_HOSTNAME=Zabbix server
-      - ZBX_SERVER_HOST=172.17.0.1
+      - ZBX_SERVER_HOST=host.docker.internal
