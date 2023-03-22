@@ -5,8 +5,6 @@ import com.portal.centro.API.model.Equipment;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EquipmentRepository extends GenericRepository<Long, Equipment> {
-
-
+public interface EquipmentRepository extends GenericRepository<Equipment,Long> {
 
 }

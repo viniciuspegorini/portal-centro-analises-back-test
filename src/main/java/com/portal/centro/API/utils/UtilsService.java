@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class UtilsService {
 
     public Type getRoleType(String email){
-        String substr = email.substring(email.indexOf("@"), email.indexOf('.'));
+        String substr = email.substring(email.indexOf("@") + 1, email.indexOf('.'));
 
         if("alunos".equals(substr)) {
             return Type.STUDENT;
