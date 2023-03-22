@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.portal.centro.API.security.SecurityConstants;
 import com.portal.centro.API.security.auth.AuthService;
-import com.portal.centro.API.user.User;
+import com.portal.centro.API.model.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

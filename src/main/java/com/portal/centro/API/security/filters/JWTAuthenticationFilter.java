@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portal.centro.API.security.AuthenticationResponse;
 import com.portal.centro.API.security.SecurityConstants;
 import com.portal.centro.API.security.auth.AuthService;
-import com.portal.centro.API.user.User;
+import com.portal.centro.API.model.User;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

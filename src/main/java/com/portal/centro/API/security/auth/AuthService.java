@@ -1,7 +1,7 @@
 package com.portal.centro.API.security.auth;
 
-import com.portal.centro.API.user.User;
-import com.portal.centro.API.user.UserRepository;
+import com.portal.centro.API.model.User;
+import com.portal.centro.API.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
