@@ -7,4 +7,4 @@ INSERT INTO USERS (email, inclusion_date, name, password, username, role) values
 INSERT INTO USERS (email, inclusion_date, name, password, username, role) values ('pegorini@gmail.com', now(), 'Vini Pegorini', '$2a$10$Iu9s/vE3UT4SMlwuLN1tyuxkmV.TqEGEC93Knrfcm5SXYThnDuU1i', 'pegorini', 0);
 INSERT INTO USERS (email, inclusion_date, name, password, username, role) values ('marcotoninho@gmail.com', now(), 'Marco Antonio', '$2a$10$Iu9s/vE3UT4SMlwuLN1tyuxkmV.TqEGEC93Knrfcm5SXYThnDuU1i', 'toninho', 1);
 INSERT INTO USERS (email, inclusion_date, name, password, username, role) values ('fernanda@gmail.com', now(), 'Fernanda', '$2a$10$Iu9s/vE3UT4SMlwuLN1tyuxkmV.TqEGEC93Knrfcm5SXYThnDuU1i', 'fernanda', 1);
-INSERT INTO USERS (email, inclusion_date, name, password, username, role) values ('cathula@gmail.com', now(), 'Cathula', '$2a$10$Iu9s/vE3UT4SMlwuLN1tyuxkmV.TqEGEC93Knrfcm5SXYThnDuU1i', 'cathula', 1);
+INSERT INTO USERS  (email, inclusion_date, name, password, username, role) values ('cathula@gmail.com', now(), 'Cathula', '$2a$10$Iu9s/vE3UT4SMlwuLN1tyuxkmV.TqEGEC93Knrfcm5SXYThnDuU1i', 'cathula', 1);
