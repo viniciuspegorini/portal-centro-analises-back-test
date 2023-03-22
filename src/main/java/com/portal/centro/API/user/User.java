@@ -26,6 +26,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Role cannot be null")
+    @Enumerated
+    private Type role;
+
     @NotNull(message = "Parameter name is required.")
     @Size(min = 4, max = 255)
     private String name;

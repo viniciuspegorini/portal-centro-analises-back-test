@@ -1,6 +1,7 @@
 package com.portal.centro.API.user;
 
 import com.portal.centro.API.generic.crud.GenericService;
+import com.portal.centro.API.utils.UtilsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,12 @@ import java.time.LocalDateTime;
 public class UserService extends GenericService<User, Long> {
 
     BCryptPasswordEncoder passwordEncoder;
+    private final UtilsService utilsService;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UtilsService utilsService) {
         super(userRepository);
+        this.utilsService = utilsService;
         passwordEncoder = new BCryptPasswordEncoder();
     }
 
@@ -22,6 +25,7 @@ public class UserService extends GenericService<User, Long> {
     public User save(User requestBody) throws Exception {
         requestBody.setPassword( passwordEncoder.encode(requestBody.getPassword()));
         requestBody.setInclusionDate(LocalDateTime.now());
+        requestBody.setRole(utilsService.getRoleType(requestBody.getEmail()));
         return super.save(requestBody);
     }
 }
