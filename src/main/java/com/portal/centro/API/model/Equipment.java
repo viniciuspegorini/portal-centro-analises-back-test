@@ -34,6 +34,8 @@ public class Equipment {
     private Double externalPrice;
 
     @NotNull
-    private Double physicalLegalPersonPrice;
+    private Double physicalLegalPrice;
+
+    private String comments;
 
 }
