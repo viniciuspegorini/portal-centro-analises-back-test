@@ -4,16 +4,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.portal.centro.API.user.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -47,12 +50,24 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private LocalDateTime inclusionDate;
 
+
     @Override
     @Transient
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("Role_USER");
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.addAll(this.authorities);
+        return list;
     }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Getter
+    @JoinTable(name = "user_authorities",
+            joinColumns = @JoinColumn(
+                    name = "tb_user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "authority_id", referencedColumnName = "id"))
+    private Set<Permission> authorities;
 
     @Override
     @Transient

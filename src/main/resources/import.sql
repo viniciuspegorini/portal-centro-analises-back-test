@@ -1,3 +1,12 @@
+INSERT INTO permission (description) values ('access_dash');
+INSERT INTO permission (description) values ('access_form');
+INSERT INTO permission (description) values ('read_dash');
+INSERT INTO permission (description) values ('read_form');
+INSERT INTO permission (description) values ('delete_dash');
+INSERT INTO permission (description) values ('delete_form');
+INSERT INTO permission (description) values ('update_dash');
+INSERT INTO permission (description) values ('update_form');
+
 INSERT INTO USERS (email, inclusion_date, name, password, username, role) values ('marcelonavarro11md@gmail.com', now(), 'Marcelo Falchi', '$2a$10$Iu9s/vE3UT4SMlwuLN1tyuxkmV.TqEGEC93Knrfcm5SXYThnDuU1i', 'falchi', 1);
 INSERT INTO USERS (email, inclusion_date, name, password, username, role) values ('erickborges@gmail.com', now(), 'Erick Borges', '$2a$10$Iu9s/vE3UT4SMlwuLN1tyuxkmV.TqEGEC93Knrfcm5SXYThnDuU1i', 'erick', 1);
 INSERT INTO USERS (email, inclusion_date, name, password, username, role) values ('pegoras@gmail.com', now(), 'Marco Pegoraro', '$2a$10$Iu9s/vE3UT4SMlwuLN1tyuxkmV.TqEGEC93Knrfcm5SXYThnDuU1i', 'pegoraro', 1);
