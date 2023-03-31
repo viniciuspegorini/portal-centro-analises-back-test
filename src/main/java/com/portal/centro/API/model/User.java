@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,14 +42,34 @@ public class User implements UserDetails {
 
     @NotNull(message = "Parameter password is required.")
     @Size(min = 6, max = 254)
-//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$")
     private String password;
 
     @NotNull(message = "Parameter email is required.")
     private String email;
 
-    @Column(nullable = false)
-    private LocalDateTime inclusionDate;
+    private Boolean status;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "email_verified")
+    private Boolean emailVerified;
+
+    private BigDecimal balance;
+
+    private String ra;
+
+    private String siape;
+
+    private String cpf;
+
+    private String cnpj;
+
+//    @Column(name = "patner_id")
+//    private Patner patner;
 
 
     @Override
@@ -97,4 +118,13 @@ public class User implements UserDetails {
         return true;
     }
 
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
