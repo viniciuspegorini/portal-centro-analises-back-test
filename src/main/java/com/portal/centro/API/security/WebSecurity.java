@@ -30,6 +30,7 @@ public class WebSecurity {
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
+    String[] whitelist = { "/v1/users/**", "/v1/equipments/**" };
 
     @Bean
     @SneakyThrows
@@ -45,7 +46,7 @@ public class WebSecurity {
                     .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/v1/users/**").permitAll()
+                .antMatchers(HttpMethod.POST, whitelist).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(authenticationManager)
