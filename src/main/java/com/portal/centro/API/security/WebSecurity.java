@@ -30,6 +30,7 @@ public class WebSecurity {
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
+    //Retirar depois
     String[] whitelist = { "/v1/users/**", "/v1/equipments/**" };
 
     @Bean
