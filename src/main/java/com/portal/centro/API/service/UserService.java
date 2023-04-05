@@ -3,7 +3,7 @@ package com.portal.centro.API.service;
 import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.model.User;
 import com.portal.centro.API.repository.UserRepository;
-import com.portal.centro.API.user.Type;
+import com.portal.centro.API.enums.Type;
 import com.portal.centro.API.utils.UtilsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -1,7 +1,7 @@
 package com.portal.centro.API.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.portal.centro.API.user.Type;
+import com.portal.centro.API.enums.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;

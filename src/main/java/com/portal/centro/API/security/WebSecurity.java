@@ -46,7 +46,7 @@ public class WebSecurity {
                     .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, whitelist).permitAll()
+                .antMatchers(whitelist).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(authenticationManager)
