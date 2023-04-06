@@ -1,5 +1,7 @@
 ![image](https://user-images.githubusercontent.com/80293325/223904256-9c578d48-4230-4606-bcd4-f7a8047f968f.png)
 
+
+
 Mock EndPoints ==>
 
 http://localhost:8085/api/v1/equipments/
@@ -14,6 +16,7 @@ Equipamentos {
 }
 
 
+AQUI REGISTRA
 http://localhost:8085/api/v1/users
 
 Usuarios {
@@ -21,4 +24,11 @@ Usuarios {
 "username" : "marcelofalchi",
 "password" :  "falchizao",
 "email" : "marcelonavarro@gmail.com"
+}
+
+AQUI FAZ O LOGIN
+http://localhost:8085/api/login
+{
+"username" : "marcelofalchi",
+"password" :  "falchizao",
 }
