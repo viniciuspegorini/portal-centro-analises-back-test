@@ -2,10 +2,7 @@ package com.portal.centro.API.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.portal.centro.API.enums.Type;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
@@ -80,6 +77,7 @@ public class User implements UserDetails {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter
+    @Setter
     @JoinTable(name = "user_authorities",
             joinColumns = @JoinColumn(
                     name = "tb_user_id", referencedColumnName = "id"),

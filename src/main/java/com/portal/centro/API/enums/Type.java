@@ -3,7 +3,6 @@ package com.portal.centro.API.enums;
 public enum Type {
     PROFESSOR("professor"),
     STUDENT("student"),
-    PARTNER("partner"),
     EXTERNAL("external");
 
     private String content;

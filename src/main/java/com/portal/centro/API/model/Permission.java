@@ -6,10 +6,8 @@ import com.portal.centro.API.generic.base.IModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -29,6 +27,14 @@ public class Permission extends IModel implements GrantedAuthority {
     @NotNull(message = "Action must not be null!")
     @NotBlank(message = "Action must not be empty!")
     private Action action;
+
+    @Transient
+    @NotBlank
+    private String slug;
+
+    private void getSlug(){
+        this.slug = description.concat("_").concat(action.toString());
+    }
 
     @Override
     public String getAuthority() {
