@@ -26,6 +26,13 @@ public class UserService extends GenericService<User, Long> {
     public User save(User requestBody) throws Exception {
         requestBody.setPassword( passwordEncoder.encode(requestBody.getPassword()));
         Type role = utilsService.getRoleType(requestBody.getEmail());
+        if (role == Type.STUDENT) {
+            utilsService.isValidStudent(requestBody.getEmail());
+        } else if (role == Type.PROFESSOR) {
+            utilsService.isValidProfessor(requestBody.getEmail());
+        } else if (role == Type.EXTERNAL || role == Type.PARTNER) {
+            utilsService.isValidGeneral(requestBody.getEmail());
+        }
         requestBody.setRole(role);
         return super.save(requestBody);
     }
