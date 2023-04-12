@@ -1,13 +1,25 @@
 package com.portal.centro.API.utils;
 
+import com.portal.centro.API.enums.Action;
 import com.portal.centro.API.model.Permission;
 import com.portal.centro.API.enums.Type;
+import com.portal.centro.API.repository.PermissionRepository;
 import org.springframework.stereotype.Component;
 import javax.mail.internet.InternetAddress;
 import java.util.*;
 
+import static java.util.stream.Collectors.toList;
+
 @Component
 public class UtilsService {
+
+    private final PermissionRepository permissionRepository;
+
+    public UtilsService(PermissionRepository permissionRepository) {
+        this.permissionRepository = permissionRepository;
+    }
+
+
 
     public Type getRoleType(String email){
 
@@ -37,12 +49,16 @@ public class UtilsService {
         return Type.EXTERNAL;
     }
 
-    public Set<Permission> getPermissionsByRole(final Type role) {
+    public List<Permission> getPermissionsByRole(final Type role) {
+        List<Permission> permissionList = permissionRepository.findAll();
 
-
-
-
-        return null;
+        if(Type.STUDENT.equals(role)) {
+            return permissionList.stream().filter(permission -> permission.getAction().equals(Action.READ)).toList();
+        } else if (Type.PROFESSOR.equals(role)) {
+            return permissionList;
+        } else {
+            return permissionList.stream().filter(permission -> permission.getAction().equals(Action.CREATE) || permission.getAction().equals(Action.READ)).toList();
+        }
     }
 
 }
