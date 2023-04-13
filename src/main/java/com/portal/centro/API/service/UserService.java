@@ -26,6 +26,7 @@ public class UserService extends GenericService<User, Long> {
     public User save(User requestBody) throws Exception {
         requestBody.setPassword( passwordEncoder.encode(requestBody.getPassword()));
         Type role = utilsService.getRoleType(requestBody.getEmail());
+        requestBody.setAuthorities(utilsService.getPermissionsByRole(role));
         requestBody.setRole(role);
         return super.save(requestBody);
     }

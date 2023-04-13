@@ -1,5 +1,6 @@
 package com.portal.centro.API.model;
 
+import com.portal.centro.API.generic.base.IModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,16 +10,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "technical_report")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TechnicalReport {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class TechnicalReport extends IModel {
 
     @NotNull(message = "Parameter description is required.")
     private String description;
@@ -28,7 +25,6 @@ public class TechnicalReport {
 
     /*
     @ManyToOne
-    @JoinColumn(name = "solicitation_id")
     private Solicitation solicitation;
     */
 
