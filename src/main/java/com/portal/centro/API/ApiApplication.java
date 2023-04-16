@@ -23,15 +23,5 @@ public class ApiApplication {
 		log.info("successfully compiled and started up");
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:5173").allowedMethods("PUT", "DELETE",
-						"GET", "POST");
-			}
-		};
-	}
 
 }
