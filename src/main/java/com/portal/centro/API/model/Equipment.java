@@ -5,14 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
-@Entity
+@Entity(name = "equipment")
 @Data
 @Builder
 @NoArgsConstructor
@@ -27,22 +25,22 @@ public class Equipment {
     @NotEmpty
     private String name;
 
-    @NotNull
-    private Double value_hour_utfpr;
+    @Column(name="value_hour_utfpr")
+    private BigDecimal valueHourUtfpr;
 
-    @NotNull
-    private Double value_hour_partner;
+    @Column(name="value_hour_partner")
+    private BigDecimal valueHourPartner;
 
-    @NotNull
-    private Double value_hour_pf_pj;
+    @Column(name="value_hour_pf_pj")
+    private BigDecimal valueHourPfPj;
 
-    @NotNull
-    private Double value_sample_utfpr;
+    @Column(name="value_sample_utfpr")
+    private BigDecimal valueSampleUtfpr;
 
-    @NotNull
-    private Double value_sample_partner;
+    @Column(name="value_sample_partner")
+    private BigDecimal valueSamplePartner;
 
-    @NotNull
-    private Double value_sample_pf_pj;
+    @Column(name="value_sample_pf_pj")
+    private BigDecimal valueSamplePfPj;
 
 }
