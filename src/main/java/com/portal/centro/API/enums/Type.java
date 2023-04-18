@@ -1,9 +1,8 @@
-package com.portal.centro.API.user;
+package com.portal.centro.API.enums;
 
 public enum Type {
     PROFESSOR("professor"),
     STUDENT("student"),
-    PARTNER("partner"),
     EXTERNAL("external");
 
     private String content;
@@ -15,5 +14,4 @@ public enum Type {
     public String getContent() {
         return content;
     }
-
 }

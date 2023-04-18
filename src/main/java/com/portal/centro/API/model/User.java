@@ -1,15 +1,12 @@
 package com.portal.centro.API.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.portal.centro.API.user.Type;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.portal.centro.API.enums.Type;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -45,6 +42,7 @@ public class User implements UserDetails {
     private String password;
 
     @NotNull(message = "Parameter email is required.")
+    @Email
     private String email;
 
     private Boolean status;
@@ -68,10 +66,6 @@ public class User implements UserDetails {
 
     private String cnpj;
 
-//    @Column(name = "patner_id")
-//    private Patner patner;
-
-
     @Override
     @Transient
     @JsonIgnore
@@ -83,12 +77,13 @@ public class User implements UserDetails {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter
+    @Setter
     @JoinTable(name = "user_authorities",
             joinColumns = @JoinColumn(
                     name = "tb_user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "authority_id", referencedColumnName = "id"))
-    private Set<Permission> authorities;
+    private List<Permission> authorities;
 
     @Override
     @Transient
@@ -125,6 +120,6 @@ public class User implements UserDetails {
 
     @PreUpdate
     public void preUpdate() {
-        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }
