@@ -49,3 +49,5 @@ INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_
 INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('Espectrômetro de Absorção Atômica', 18.00, 30.00, 80.00);
 INSERT INTO equipment (name, value_sample_utfpr, value_sample_partner, value_sample_pf_pj) VALUES ('A ELEMENTAR', 40.00, 60.00, 140.00);
 
+INSERT INTO partner (name) VALUES ('FADEP');
+INSERT INTO partner (name) VALUES ('UNIMATER');
