@@ -28,15 +28,15 @@ public class TechnicalReport extends IModel {
     private Solicitation solicitation;
 
     @NotNull(message = "Parameter price is required.")
-    @NotBlank(message = "Action must not be empty.")
+    @NotBlank(message = "Price must not be empty.")
     private Float price;
 
     @NotNull(message = "Parameter amountHours is required.")
-    @NotBlank(message = "Action must not be empty.")
+    @NotBlank(message = "AmountHours must not be empty.")
     private Integer amountHours;
 
     @NotNull(message = "Parameter amountSamples is required.")
-    @NotBlank(message = "Action must not be empty.")
+    @NotBlank(message = "AmountSamples must not be empty.")
     private Integer amountSamples;
 
 }
