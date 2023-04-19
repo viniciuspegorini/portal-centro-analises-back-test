@@ -14,7 +14,6 @@ public class PartnerController extends GenericController<Partner, Long> {
     @Autowired
     public PartnerController(PartnerService partnerService) {
         super(partnerService);
-
     }
 
 }

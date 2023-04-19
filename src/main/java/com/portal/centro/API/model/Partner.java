@@ -10,11 +10,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity(name = "partner")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity(name = "partner")
 public class Partner {
 
     @Id
