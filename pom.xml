@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.portal.centro</groupId>
-	<artifactId>API</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>API</name>
+	<artifactId>api-oficina</artifactId>
+	<version>0.1</version>
+	<name>api</name>
 	<description>utfprapps-pb</description>
 	<properties>
 		<java.version>17</java.version>

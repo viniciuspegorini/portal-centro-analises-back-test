@@ -1,27 +1,18 @@
-version: '3.3'
-
-networks:
-  application:
-    driver: bridge
-
-volumes:
-  db:
-
 services:
-  postgres:
-    container_name: postgres
+
+  postgresql:
+    container_name: postgresql
     image: postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: portal_centro
+      POSTGRES_PASSWORD: postgres
       PGDATA: /data/postgres
     volumes:
       - db:/data/postgres
     ports:
-      - "5432:5432"
+      - "5433:5433"
     networks:
-      - application
+      - postgresql
     restart: unless-stopped
   minio:
     image: minio/minio:latest
@@ -37,21 +28,27 @@ services:
     restart: always
     command: server /data --console-address :9001
     networks:
-      - application
-
+      - postgresql
   api:
     container_name: api
-    image: maven:3.8.3-openjdk-17
     working_dir: /home/java/app
-    restart: always
-    command: sh -c "chmod +x ./mvnw && ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005'"
-    volumes:
-      - .././:/home/java/app
-    ports: 
-      - "8085:8085"
-      - "5005:5005"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
     networks:
-      - application
+      - postgresql
     depends_on:
-      - postgres
+      - postgresql
+    restart: always
+
+networks:
+  postgresql:
+    driver: bridge
+
+volumes:
+  db:
+
+
 
