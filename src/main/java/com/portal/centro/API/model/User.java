@@ -66,6 +66,10 @@ public class User implements UserDetails {
 
     private String cnpj;
 
+    @ManyToOne
+    @JoinColumn(name = "partner_id")
+    private Partner partner;
+
     @Override
     @Transient
     @JsonIgnore
