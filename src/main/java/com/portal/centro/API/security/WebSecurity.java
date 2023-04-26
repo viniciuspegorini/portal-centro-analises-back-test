@@ -47,6 +47,7 @@ public class WebSecurity {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/v1/users/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/emailconfirm/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(authenticationManager)
