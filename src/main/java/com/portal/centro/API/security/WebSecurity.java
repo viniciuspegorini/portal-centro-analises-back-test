@@ -43,7 +43,8 @@ public class WebSecurity {
 
         http.csrf().disable()
                 .exceptionHandling()
-                    .authenticationEntryPoint(authenticationEntryPoint)
+                    .authenticationEntryPoint(authenticationEntryPoint).and()
+                .cors()
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/v1/users/**").permitAll()

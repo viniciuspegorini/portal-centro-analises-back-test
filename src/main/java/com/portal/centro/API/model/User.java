@@ -83,7 +83,7 @@ public class User implements UserDetails {
                     name = "tb_user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "authority_id", referencedColumnName = "id"))
-    private Set<Permission> authorities;
+    private List<Permission> authorities;
 
     @Override
     @Transient
