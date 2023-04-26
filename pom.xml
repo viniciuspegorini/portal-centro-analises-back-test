@@ -8,10 +8,11 @@
 		<version>2.7.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.portal.centro</groupId>
-	<artifactId>API</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>API</name>
+	<groupId>io.apioficina</groupId>
+	<artifactId>apioficina</artifactId>
+	<version>1</version>
+	<packaging>jar</packaging>
+	<name>apioficina</name>
 	<description>utfprapps-pb</description>
 	<properties>
 		<java.version>17</java.version>

@@ -35,3 +35,20 @@ insert into user_authorities (tb_user_id, authority_id) values (4,5);
 insert into user_authorities (tb_user_id, authority_id) values (4,6);
 insert into user_authorities (tb_user_id, authority_id) values (4,7);
 insert into user_authorities (tb_user_id, authority_id) values (4,8);
+
+-- Carga inicial equipamentos
+INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('HPLC', 11.50, 21.00, 115.00);
+INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('CG-EM', 15.00, 25.00, 150.00);
+INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('TGA', 14.00, 22.00, 80.00);
+INSERT INTO equipment (name, value_sample_utfpr, value_sample_partner, value_sample_pf_pj) VALUES ('Calorímetro diferencial exploratório (DSC)', 30.00, 45.00, 110.00);
+INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('Microscópio Eletrônico de Varredura (MEV)', 17.00, 25.00, 80.00);
+INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('DRX', 25.00, 45.00, 105.00);
+INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('Espectrômetro de Infravermelho na região do próximo com Transformada de Fourier (FT-NIR)', 2.50, 5.00, 15.00);
+INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('Espectrômetro de Infravermelho na região do Médio com Transformada de Fourier (FT-MIR)', 5.00, 15.00, 130.00);
+INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('Espectrofotômetro de Absorção Molecular (UV-Vis)', 8.00, 15.00, 70.00);
+INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('Espectrômetro de Absorção Atômica', 18.00, 30.00, 80.00);
+INSERT INTO equipment (name, value_sample_utfpr, value_sample_partner, value_sample_pf_pj) VALUES ('A ELEMENTAR', 40.00, 60.00, 140.00);
+
+
+INSERT INTO partner (name) VALUES ('FADEP');
+INSERT INTO partner (name) VALUES ('UNIMATER');
