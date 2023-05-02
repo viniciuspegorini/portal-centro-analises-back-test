@@ -1,4 +1,4 @@
-package com.portal.centro.API.dto.email;
+package com.portal.centro.API.dto;
 
 import lombok.Getter;
 import lombok.Setter;
