@@ -5,6 +5,8 @@ import com.portal.centro.API.model.Permission;
 import com.portal.centro.API.enums.Type;
 import com.portal.centro.API.repository.PermissionRepository;
 import org.springframework.stereotype.Component;
+
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.util.*;
 
@@ -20,6 +22,9 @@ public class UtilsService {
     }
 
 
+    public String generateEmailMessage(String content) {
+        return "";
+    }
 
     public Type getRoleType(String email){
 
@@ -59,6 +64,13 @@ public class UtilsService {
         } else {
             return permissionList.stream().filter(permission -> permission.getAction().equals(Action.CREATE) || permission.getAction().equals(Action.READ)).toList();
         }
+    }
+
+    public Collection<InternetAddress> getEmailToSend(final String email) throws AddressException {
+        Collection<InternetAddress> addresses = new ArrayList<>();
+        InternetAddress emailAddress = new InternetAddress(email);
+        addresses.add(emailAddress);
+        return addresses;
     }
 
 }
