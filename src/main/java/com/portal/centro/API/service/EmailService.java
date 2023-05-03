@@ -26,23 +26,20 @@ public class EmailService {
     }
 
     public void sendEmail(EmailDto emailTo) {
+        HtmlEmail htmlEmail = new HtmlEmail();
         try{
-            HtmlEmail htmlEmail = new HtmlEmail();
+
             htmlEmail.setHostName(configProvider.getProtocol());
             htmlEmail.setSmtpPort(configProvider.getPort());
-            htmlEmail.setSslSmtpPort(configProvider.getPort().toString());
             htmlEmail.setAuthenticator(new DefaultAuthenticator(configProvider.getAddress(), configProvider.getPassword()));
-            htmlEmail.setSSLOnConnect(true);
+            htmlEmail.setStartTLSEnabled(true);
             htmlEmail.setFrom(configProvider.getAddress());
-            htmlEmail.setSubject("testando!");
-            htmlEmail.setStartTLSRequired(true);
-            htmlEmail.setTo(utilsService.getEmailToSend(emailTo.getEmailTo()));
+            htmlEmail.addTo(emailTo.getEmailTo());
+            htmlEmail.setSubject("Recuperação de senha");
             htmlEmail.setHtmlMsg(emailMessageGenerator.generateHTML("testando email marcelinho", "aqui vai o body...", "https://thumbs.dreamstime.com/b/peru-do-natal-12227530.jpg"));
 
-            if (htmlEmail.getMimeMessage() == null) { htmlEmail.buildMimeMessage(); }
-
             log.info("enviando email....");
-            htmlEmail.sendMimeMessage();
+            htmlEmail.send();
             log.info("email enviado com sucesso!");
 
         } catch (Exception e) {
