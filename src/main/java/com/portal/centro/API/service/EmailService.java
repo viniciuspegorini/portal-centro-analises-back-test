@@ -35,8 +35,8 @@ public class EmailService {
             htmlEmail.setStartTLSEnabled(true);
             htmlEmail.setFrom(configProvider.getAddress());
             htmlEmail.addTo(emailTo.getEmailTo());
-            htmlEmail.setSubject("Recuperação de senha");
-            htmlEmail.setHtmlMsg(emailMessageGenerator.generateHTML("testando email marcelinho", "aqui vai o body...", "https://thumbs.dreamstime.com/b/peru-do-natal-12227530.jpg"));
+            htmlEmail.setSubject(emailTo.getSubject());
+            htmlEmail.setHtmlMsg(emailMessageGenerator.generateHTML(emailTo.getSubjectBody(), emailTo.getContentBody(), ""));
 
             log.info("enviando email....");
             htmlEmail.send();
