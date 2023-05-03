@@ -1,54 +1,51 @@
 package com.portal.centro.API.service;
 
-import com.portal.centro.API.enums.StatusEmail;
-import com.portal.centro.API.model.EmailModel;
-import com.portal.centro.API.repository.EmailRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import com.portal.centro.API.dto.EmailDto;
+import com.portal.centro.API.provider.ConfigProvider;
+import com.portal.centro.API.utils.EmailMessageGenerator;
+import com.portal.centro.API.utils.UtilsService;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
+@Data
+@Slf4j
 public class EmailService {
 
-    @Autowired
-    EmailRepository emailRepository;
+    final private UtilsService utilsService;
+    final private ConfigProvider configProvider;
+    final private EmailMessageGenerator emailMessageGenerator;
 
-    @Autowired
-    private JavaMailSender emailSender;
+    public EmailService (UtilsService utils, ConfigProvider configProvider, EmailMessageGenerator emailMessageGenerator) {
+        this.utilsService = utils;
+        this.configProvider = configProvider;
+        this.emailMessageGenerator = emailMessageGenerator;
+    }
 
-    @Transactional
-    public EmailModel sendEmail(EmailModel emailModel) {
-        emailModel.setSendDateEmail(LocalDateTime.now());
+    public void sendEmail(EmailDto emailTo) {
+        HtmlEmail htmlEmail = new HtmlEmail();
         try{
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(emailModel.getEmailFrom());
-            message.setTo(emailModel.getEmailTo());
-            message.setSubject(emailModel.getSubject());
-            message.setText(emailModel.getText());
-            emailSender.send(message);
 
-            emailModel.setStatusEmail(StatusEmail.SENT);
-        } catch (MailException e){
-            emailModel.setStatusEmail(StatusEmail.ERROR);
-        } finally {
-            return emailRepository.save(emailModel);
+            htmlEmail.setHostName(configProvider.getProtocol());
+            htmlEmail.setSmtpPort(configProvider.getPort());
+            htmlEmail.setAuthenticator(new DefaultAuthenticator(configProvider.getAddress(), configProvider.getPassword()));
+            htmlEmail.setStartTLSEnabled(true);
+            htmlEmail.setFrom(configProvider.getAddress());
+            htmlEmail.addTo(emailTo.getEmailTo());
+            htmlEmail.setSubject("Recuperação de senha");
+            htmlEmail.setHtmlMsg(emailMessageGenerator.generateHTML("testando email marcelinho", "aqui vai o body...", "https://thumbs.dreamstime.com/b/peru-do-natal-12227530.jpg"));
+
+            log.info("enviando email....");
+            htmlEmail.send();
+            log.info("email enviado com sucesso!");
+
+        } catch (Exception e) {
+            log.info("erro ao enviar email....");
+            System.out.println(e.getMessage());
         }
-    }
 
-    public Page<EmailModel> findAll(Pageable pageable) {
-        return  emailRepository.findAll(pageable);
-    }
-
-    public Optional<EmailModel> findById(UUID emailId) {
-        return emailRepository.findById(emailId);
     }
 }
