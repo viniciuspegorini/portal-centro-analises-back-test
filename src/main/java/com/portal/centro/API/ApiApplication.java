@@ -26,21 +26,4 @@ public class ApiApplication {
 	public void startupMessage() {
 		log.info("successfully compiled and started up");
 	}
-
-	@Bean
-	public JavaMailSender getJavaMailSender() {
-		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost("smtp.gmail.com");
-		mailSender.setPort(587);
-
-		//mailSender.setUsername("testeaulapegorini@gmail.com"); -> TROCAR EMAIL PARA O EMAIL DO PEGORINI (depois o do lab)
-		//mailSender.setPassword("svldnxtoifbkbntk"); -> TROCAR A KEY DO GMAIL TAMBEM
-
-		Properties props = mailSender.getJavaMailProperties();
-		props.put("mail.transport.protocol", "smtp");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-
-		return mailSender;
-	}
 }

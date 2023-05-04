@@ -4,21 +4,17 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
 
 @Data
 public class EmailDto {
-
-    @NotBlank
-    private String ownerRef;
-    @NotBlank
-    @Email
-    private String emailFrom;
-    @NotBlank
     @Email
     private String emailTo;
-    @NotBlank
-    private String subject;
-    @NotBlank
-    private String text;
 
+    @Null
+    private String subject;
+    @Null
+    private String subjectBody;
+    @Null
+    private String contentBody;
 }
