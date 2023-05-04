@@ -14,11 +14,13 @@ public class UserService extends GenericService<User, Long> {
 
     BCryptPasswordEncoder passwordEncoder;
     private final UtilsService utilsService;
+    private final EmailCodeService emailCodeService;
 
     @Autowired
-    public UserService(UserRepository userRepository, UtilsService utilsService) {
+    public UserService(UserRepository userRepository, UtilsService utilsService, EmailCodeService emailCodeService) {
         super(userRepository);
         this.utilsService = utilsService;
+        this.emailCodeService = emailCodeService;
         passwordEncoder = new BCryptPasswordEncoder();
     }
 
@@ -28,6 +30,9 @@ public class UserService extends GenericService<User, Long> {
         Type role = utilsService.getRoleType(requestBody.getEmail());
         requestBody.setAuthorities(utilsService.getPermissionsByRole(role));
         requestBody.setRole(role);
-        return super.save(requestBody);
+        User user = super.save(requestBody);
+        this.emailCodeService.createCode(user);
+
+        return user;
     }
 }
