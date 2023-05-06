@@ -38,4 +38,9 @@ public abstract class GenericController<T, ID extends Serializable> {
         return ResponseEntity.ok(genericService.getAll());
     }
 
+    @PostMapping("{id}")
+    public ResponseEntity findOneById(@PathVariable ID id) {
+        return ResponseEntity.ok(genericService.findOneById(id));
+    }
+
 }
