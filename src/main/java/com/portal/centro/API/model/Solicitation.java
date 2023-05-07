@@ -1,6 +1,6 @@
 package com.portal.centro.API.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.portal.centro.API.enums.SolicitationStatus;
 import com.portal.centro.API.generic.base.IModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -56,5 +57,8 @@ public class Solicitation extends IModel {
     @NotNull
     @Column(name = "amount_samples")
     private Integer amountSamples;
+
+    @Enumerated
+    private SolicitationStatus status;
 
 }
