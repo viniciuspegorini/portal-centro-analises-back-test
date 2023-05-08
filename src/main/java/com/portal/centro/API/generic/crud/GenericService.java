@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class GenericService<T, ID> {
 
-    private final GenericRepository<T, ID> genericRepository;
+    public final GenericRepository<T, ID> genericRepository;
 
     public GenericService(GenericRepository<T, ID> genericRepository) {
         this.genericRepository = genericRepository;

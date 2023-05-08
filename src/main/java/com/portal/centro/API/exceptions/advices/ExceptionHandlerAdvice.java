@@ -1,6 +1,6 @@
-package com.portal.centro.API.apierror.handlers;
+package com.portal.centro.API.exceptions.advices;
 
-import com.portal.centro.API.apierror.model.ApiError;
+import com.portal.centro.API.model.ApiError;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

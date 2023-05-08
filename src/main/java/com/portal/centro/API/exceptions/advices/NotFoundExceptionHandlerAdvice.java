@@ -1,7 +1,7 @@
-package com.portal.centro.API.apierror.handlers;
+package com.portal.centro.API.exceptions.advices;
 
-import com.portal.centro.API.apierror.model.ApiError;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import com.portal.centro.API.exceptions.NotFoundException;
+import com.portal.centro.API.model.ApiError;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class NotFoundExceptionHandlerAdvice {
 
-    @ExceptionHandler({ChangeSetPersister.NotFoundException.class})
+    @ExceptionHandler({NotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     private ApiError handlerGenericExceptionError(
             Exception exception,

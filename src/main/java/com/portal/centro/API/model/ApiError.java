@@ -1,4 +1,4 @@
-package com.portal.centro.API.apierror.model;
+package com.portal.centro.API.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
