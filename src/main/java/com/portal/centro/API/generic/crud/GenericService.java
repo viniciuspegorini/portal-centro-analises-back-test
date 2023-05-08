@@ -23,4 +23,6 @@ public abstract class GenericService<T, ID> {
         return genericRepository.findAll();
     }
 
+    public T findOneById(ID id) { return genericRepository.findById(id).orElseThrow(); }
+
 }
