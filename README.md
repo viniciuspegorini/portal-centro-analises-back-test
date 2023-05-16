@@ -3,7 +3,7 @@
 
 
 ADD USER
-http://localhost:8085/api/v1/users
+http://localhost:8085/api/users
 ` {
   "name" : "Marcelo",
   "username" : "marcelofalchi",
@@ -21,7 +21,7 @@ http://localhost:8085/api/login
 
 
 ADD EQUIP
-http://localhost:8085/api/v1/equipments/
+http://localhost:8085/api/equipments/
 ` {
   "name" : "maquina1",
   "value_hour_utfpr" : 10.0,

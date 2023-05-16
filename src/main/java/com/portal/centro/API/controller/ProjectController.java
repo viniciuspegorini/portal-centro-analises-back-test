@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("v1/project")
+@RequestMapping("project")
 public class ProjectController extends GenericController<Project, Long> {
 
     public ProjectController(GenericService<Project, Long> genericService) {

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("v1/transaction")
+@RequestMapping("transaction")
 public class TransactionController extends GenericController<Transaction, Long> {
 
     public TransactionController(GenericService<Transaction, Long> genericService) {
