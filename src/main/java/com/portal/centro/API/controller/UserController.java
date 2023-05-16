@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("v1/users")
+@RequestMapping("users")
 public class UserController extends GenericController<User, Long> {
 
     private final UserService userService;

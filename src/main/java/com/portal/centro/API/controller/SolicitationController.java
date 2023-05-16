@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("v1/solicitation")
+@RequestMapping("solicitation")
 public class SolicitationController extends GenericController<Solicitation, Long> {
 
     private final SolicitationService solicitationService;

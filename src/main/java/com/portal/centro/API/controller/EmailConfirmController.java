@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.websocket.server.PathParam;
 
 @RestController
-@RequestMapping("v1/emailconfirm")
+@RequestMapping("emailconfirm")
 public class EmailConfirmController {
 
     final EmailCodeService emailCodeService;
