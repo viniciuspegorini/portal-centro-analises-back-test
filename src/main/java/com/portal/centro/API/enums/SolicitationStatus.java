@@ -1,10 +1,11 @@
 package com.portal.centro.API.enums;
 
 public enum SolicitationStatus {
-    PENDING("pending"),
-    REFUSED("refused"),
-    CORRECTION("correction"),
-    APPROVED("approved");
+    PENDING("Aguardando Confirmação"),
+    REFUSED("Recusado"),
+    PENDINGPAYMENT("Aguardando Pagamento"),
+    FINISHED("Concluído"),
+    APPROVED("Aguardando Análise");
 
     private String content;
 
