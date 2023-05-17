@@ -29,7 +29,7 @@ public class Project extends IModel {
     @JoinColumn(name = "teacher_id")
     private User teacher;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "project_student",
             joinColumns = @JoinColumn(
                     name = "project_id", referencedColumnName = "id"),

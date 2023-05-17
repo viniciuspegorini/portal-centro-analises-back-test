@@ -5,7 +5,7 @@ networks:
   web:
     name: web
     driver: bridge
-    external: true
+    external: false
     attachable: true
 
   database:
@@ -14,8 +14,21 @@ networks:
     external: false
     attachable: true
 
-### SERVICES ###
 services:
+
+  postgresql:
+    container_name: postgresql
+    image: postgres
+    ports:
+      - "5423:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: apioficina
+    networks:
+      - web
+      - database
+
   ca-api:
     image: ca_api-dev
     container_name: cap-api-dev
@@ -43,6 +56,8 @@ services:
       - "traefik.http.routers.ca-api-dev.tls.certresolver=letsencrypt"
       - "traefik.http.routers.ca-api-dev.entrypoints=websecure"
     restart: unless-stopped
+    depends_on:
+      - postgresql
     networks:
       - web
       - database
