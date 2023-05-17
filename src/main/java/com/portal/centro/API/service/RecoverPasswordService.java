@@ -3,7 +3,6 @@ package com.portal.centro.API.service;
 import com.portal.centro.API.model.RecoverPassword;
 import com.portal.centro.API.utils.DateTimeUtil;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -20,15 +19,15 @@ public class RecoverPasswordService {
     @Getter
     private Map<String, RecoverPassword> codeSentByEmail = new HashMap<>();
 
-    public void addCode(String username, RecoverPassword recoverPassword) {
-        this.codeSentByEmail.put(username, recoverPassword);
+    public void addCode(String email, RecoverPassword recoverPassword) {
+        this.codeSentByEmail.put(email, recoverPassword);
     }
 
     @Scheduled(cron = EVERY_MID_NIGHT)
     public void clearExpiredCodesSentByEmail() {
         for (RecoverPassword recoverPassword : codeSentByEmail.values()) {
             if (codeExpired(recoverPassword))
-                codeSentByEmail.remove(recoverPassword.getUsername());
+                codeSentByEmail.remove(recoverPassword.getEmail());
         }
     }
 

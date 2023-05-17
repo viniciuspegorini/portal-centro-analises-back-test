@@ -23,9 +23,9 @@ public class UserController extends GenericController<User, Long> {
         this.userService = userService;
     }
 
-    @PostMapping(path = "send-code-recover-password/username/{username}")
-    public ResponseEntity sendEmailCodeRecoverPassword(@PathVariable("username") String username) throws Exception {
-        return ResponseEntity.ok(userService.sendEmailCodeRecoverPassword(username));
+    @PostMapping(path = "send-code-recover-password/email/{email}")
+    public ResponseEntity sendEmailCodeRecoverPassword(@PathVariable("email") String email) throws Exception {
+        return ResponseEntity.ok(userService.sendEmailCodeRecoverPassword(email));
     }
 
     @PostMapping(path = "recover-password")

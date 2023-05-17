@@ -58,12 +58,12 @@ public class UserService extends GenericService<User, Long> {
         return user;
     }
 
-    public SendEmailCodeRecoverPassword sendEmailCodeRecoverPassword(String username) throws Exception {
-        User user = userRepository.findByUsername(username);
+    public SendEmailCodeRecoverPassword sendEmailCodeRecoverPassword(String email) throws Exception {
+        User user = userRepository.findByEmail(email);
         if (Objects.isNull(user))
             throwExceptionUserNotFound();
         Integer code = new Random().nextInt(1000000);
-        recoverPasswordService.addCode(username, new RecoverPassword(username, code, DateTimeUtil.getCurrentDateTime()));
+        recoverPasswordService.addCode(email, new RecoverPassword(email, code, DateTimeUtil.getCurrentDateTime()));
         emailService.sendEmail(getEmailDtoToSendEmailWithCode(user.getEmail(), code));
         return new SendEmailCodeRecoverPassword("Código enviado com sucesso para o e-mail " + user.getEmail() + ".", user.getEmail());
     }
@@ -78,21 +78,21 @@ public class UserService extends GenericService<User, Long> {
     }
 
     public DefaultResponse recoverPassword(RecoverPasswordDTO recoverPasswordDTO) throws Exception {
-        User user = userRepository.findByUsername(recoverPasswordDTO.getUsername());
+        User user = userRepository.findByEmail(recoverPasswordDTO.getEmail());
         if (Objects.isNull(user))
             throwExceptionUserNotFound();
 
-        RecoverPassword recoverPassword = recoverPasswordService.getCodeSentByEmail().getOrDefault(recoverPasswordDTO.getUsername(), new RecoverPassword());
+        RecoverPassword recoverPassword = recoverPasswordService.getCodeSentByEmail().getOrDefault(recoverPasswordDTO.getEmail(), new RecoverPassword());
         Boolean codesMatch = Objects.equals(recoverPasswordDTO.getCode(), recoverPassword.getCode());
         if (!codesMatch)
             return new DefaultResponse(HttpStatus.BAD_REQUEST.value(), "Código inválido.");
 
-        updateUserNewPasswordByUsername(user, recoverPasswordDTO.getNewPassword());
-        recoverPasswordService.getCodeSentByEmail().remove(recoverPasswordDTO.getUsername());
+        updateUserNewPasswordByEmail(user, recoverPasswordDTO.getNewPassword());
+        recoverPasswordService.getCodeSentByEmail().remove(recoverPasswordDTO.getEmail());
         return new DefaultResponse(HttpStatus.OK.value(), "Senha alterada com sucesso.");
     }
 
-    private void updateUserNewPasswordByUsername(User user, String newPassword) throws Exception {
+    private void updateUserNewPasswordByEmail(User user, String newPassword) throws Exception {
         if (Objects.isNull(user))
             return;
 
