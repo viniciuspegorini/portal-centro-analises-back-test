@@ -52,10 +52,18 @@ public class UserService extends GenericService<User, Long> {
         Type role = utilsService.getRoleType(requestBody.getEmail());
         requestBody.setAuthorities(utilsService.getPermissionsByRole(role));
         requestBody.setRole(role);
+        this.validate(requestBody);
         User user = super.save(requestBody);
         this.emailCodeService.createCode(user);
 
         return user;
+    }
+
+    private void validate(User user) throws Exception {
+        User userDb = this.userRepository.findByEmail(user.getEmail());
+        if (userDb != null && userDb.getId() != user.getId()) {
+            throw new Exception("Email já cadastrado.");
+        }
     }
 
     public SendEmailCodeRecoverPassword sendEmailCodeRecoverPassword(String email) throws Exception {
