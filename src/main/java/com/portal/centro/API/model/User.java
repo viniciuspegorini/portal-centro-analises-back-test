@@ -2,6 +2,7 @@ package com.portal.centro.API.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.portal.centro.API.enums.Type;
+import com.portal.centro.API.validations.user.UserUniqueConstraint;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "setuniqueemail", columnNames = "email")
+})
+@UserUniqueConstraint
 public class User implements UserDetails {
 
     @Id
@@ -33,17 +38,13 @@ public class User implements UserDetails {
     @Size(min = 4, max = 255)
     private String name;
 
-    @NotNull(message = "Parameter username is required.")
-    @Size(min = 4, max = 255)
-    private String username;
+    @NotNull(message = "Parameter email is required.")
+    @Email
+    private String email;
 
     @NotNull(message = "Parameter password is required.")
     @Size(min = 6, max = 254)
     private String password;
-
-    @NotNull(message = "Parameter email is required.")
-    @Email
-    private String email;
 
     private Boolean status;
 
@@ -77,6 +78,11 @@ public class User implements UserDetails {
         List<GrantedAuthority> list = new ArrayList<>();
         list.addAll(this.authorities);
         return list;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
     }
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

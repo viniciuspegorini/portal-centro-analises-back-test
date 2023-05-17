@@ -6,7 +6,6 @@ ADD USER
 http://localhost:8085/api/users
 ` {
   "name" : "Marcelo",
-  "username" : "marcelofalchi",
   "password" :  "falchizao",
   "email" : "marcelonavarro@gmail.com"
 }`
@@ -15,7 +14,7 @@ http://localhost:8085/api/users
 LOGIN
 http://localhost:8085/api/login
 `{
-  "username" : "marcelofalchi",
+  "email" : "marcelonavarro@gmail.com",
   "password" :  "falchizao",
 }`
 

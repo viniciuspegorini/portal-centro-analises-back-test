@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class RecoverPassword {
 
-    private String username;
+    private String email;
     private Integer code;
     private LocalDateTime dateTime;
 

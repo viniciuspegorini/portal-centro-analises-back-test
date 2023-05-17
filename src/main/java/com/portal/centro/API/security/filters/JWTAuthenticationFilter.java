@@ -36,11 +36,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             User credentials = new ObjectMapper().readValue(request.getInputStream(), User.class);
-            User user = (User) authService.loadUserByUsername(credentials.getUsername());
+            User user = (User) authService.loadUserByUsername(credentials.getEmail());
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            credentials.getUsername(),
+                            credentials.getEmail(),
                             credentials.getPassword(),
                             user.getAuthorities()
                     )

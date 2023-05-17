@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 public class RecoverPasswordDTO {
 
     @NotNull
-    private String username;
+    private String email;
     @NotNull
     private Integer code;
     @NotNull
