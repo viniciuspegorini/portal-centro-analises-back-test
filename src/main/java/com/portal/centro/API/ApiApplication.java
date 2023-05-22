@@ -1,6 +1,7 @@
 package com.portal.centro.API;
 
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -26,4 +27,10 @@ public class ApiApplication {
 	public void startupMessage() {
 		log.info("successfully compiled and started up");
 	}
+
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
+
 }

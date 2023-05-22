@@ -14,6 +14,7 @@ import com.portal.centro.API.utils.DateTimeUtil;
 import com.portal.centro.API.utils.UtilsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -115,6 +116,12 @@ public class UserService extends GenericService<User, Long> {
 
     private void throwExceptionUserNotFound() {
         throw new NotFoundException("Usuário não encontrado.");
+    }
+
+    public User findSelfUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(principal.toString());
+        return user;
     }
 
 }
