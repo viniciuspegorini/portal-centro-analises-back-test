@@ -68,7 +68,7 @@ public abstract class GenericController<T, ID extends Serializable> {
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "order",required = false) String order,
-            @RequestParam(value = "sort",required = false) Boolean asc,
+            @RequestParam(value = "asc",required = false) Boolean asc,
             @RequestParam(value = "search", required = false) String search
     ) throws Exception {
         Specification<T> spec = resolveSpecification(search);
