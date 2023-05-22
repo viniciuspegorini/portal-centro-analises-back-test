@@ -76,7 +76,7 @@ public class User implements UserDetails {
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<>();
-        list.addAll(this.authorities);
+        list.addAll(this.permissions);
         return list;
     }
 
@@ -85,15 +85,9 @@ public class User implements UserDetails {
         return this.email;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Getter
-    @Setter
-    @JoinTable(name = "user_authorities",
-            joinColumns = @JoinColumn(
-                    name = "tb_user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "authority_id", referencedColumnName = "id"))
-    private List<Permission> authorities;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private List<Permission> permissions;
 
     @Override
     @Transient

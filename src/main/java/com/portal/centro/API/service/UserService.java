@@ -50,7 +50,7 @@ public class UserService extends GenericService<User, Long> {
     public User save(User requestBody) throws Exception {
         encryptPassword(requestBody);
         Type role = utilsService.getRoleType(requestBody.getEmail());
-        requestBody.setAuthorities(utilsService.getPermissionsByRole(role));
+        requestBody.setPermissions(utilsService.getPermissionsByRole(role));
         requestBody.setRole(role);
         this.validate(requestBody);
         User user = super.save(requestBody);
