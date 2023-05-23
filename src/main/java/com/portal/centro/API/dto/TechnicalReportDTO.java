@@ -1,30 +1,26 @@
-package com.portal.centro.API.model;
+package com.portal.centro.API.dto;
 
-import com.portal.centro.API.generic.base.IModel;
+import com.portal.centro.API.model.Solicitation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Entity(name = "technical_report")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TechnicalReport extends IModel {
-
+public class TechnicalReportDTO {
     @NotNull(message = "Parameter description is required.")
     private String description;
 
     @NotNull
     private LocalDateTime date;
 
-    @ManyToOne
     private Solicitation solicitation;
 
     @NotNull(message = "Parameter price is required.")
@@ -39,8 +35,6 @@ public class TechnicalReport extends IModel {
     @NotBlank(message = "AmountSamples must not be empty.")
     private Integer amountSamples;
 
-    private  String fileName; //adicionar coluna nova no banco
-
-    private  String contentType; //adicionar coluna nova no banco
-
+    private  String fileName;
+    private  String contentType;
 }
