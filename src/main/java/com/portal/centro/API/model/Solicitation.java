@@ -1,14 +1,13 @@
 package com.portal.centro.API.model;
 
 import com.portal.centro.API.enums.SolicitationStatus;
+import com.portal.centro.API.enums.TypeUser;
 import com.portal.centro.API.generic.base.IModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -37,5 +36,8 @@ public class Solicitation extends IModel {
 
     @Enumerated
     private SolicitationStatus status;
+
+    @Enumerated(value = EnumType.STRING)
+    private TypeUser typeUser;
 
 }
