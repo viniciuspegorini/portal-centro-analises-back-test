@@ -1,7 +1,21 @@
-version: '3.1'
-services:
+version: '3.9'
 
+### NETWORKS ###
+networks:
+  web:
+    name: web
+    driver: bridge
+    external: false
+    attachable: true
+  database:
+    name: database
+    driver: bridge
+    external: false
+    attachable: true
+
+services:
   postgresql:
+    container_name: postgresql
     image: postgres
     ports:
       - "5423:5432"
@@ -9,27 +23,39 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: apioficina
+    networks:
+      - web
+      - database
 
-  minio:
-    image: minio/minio:latest
-    container_name: minio
+  ca-api:
+    image: ca_api-dev
+    container_name: cap-api-dev
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8810:8810"
     environment:
-      MINIO_ROOT_USER: "minioadmin"
-      MINIO_ROOT_PASSWORD: "minioadmin"
-    volumes:
-      - ./data:/data
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    restart: always
-    command: server /data --console-address :9001
-
-  api:
-    container_name: apioficina
-    build: ./
-    ports:
-      - "8080:8080"
+      - SERVER_PORT${SERVER_PORT}
+      - DATABASE_URL${DATABASE_URL}
+      - DATABASE_USERNAME${DATABASE_USERNAME}
+      - DATABASE_PASSWORD${DATABASE_PASSWORD}
+      - MINIO_ENDPOINT${MINIO_ENDPOINT}
+      - MINIO_PORT${MINIO_PORT}
+      - MINIO_ACCESS_KEY${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY${MINIO_SECRET_KEY}
+      - MINIO_SECURE${MINIO_SECURE}
+      - MINIO_BUCKET_NAME${MINIO_BUCKET_NAME}
+      - TZ=America/Sao_Paulo
+    labels:
+      # Traefik Config
+      - "traefik.enable=true"
+      - "traefik.http.routers.ca-api-dev.rule=Host(`ca-api-dev.app.pb.utfpr.edu.br`)"
+      - "traefik.http.routers.ca-api-dev.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.ca-api-dev.entrypoints=websecure"
+    restart: unless-stopped
     depends_on:
       - postgresql
-
-
+    networks:
+      - web
+      - database

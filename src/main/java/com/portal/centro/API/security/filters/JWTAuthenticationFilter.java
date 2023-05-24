@@ -3,10 +3,11 @@ package com.portal.centro.API.security.filters;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.portal.centro.API.dto.UserDTO;
+import com.portal.centro.API.model.User;
 import com.portal.centro.API.security.AuthenticationResponse;
 import com.portal.centro.API.security.SecurityConstants;
 import com.portal.centro.API.security.auth.AuthService;
-import com.portal.centro.API.model.User;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +16,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -36,11 +36,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             User credentials = new ObjectMapper().readValue(request.getInputStream(), User.class);
-            User user = (User) authService.loadUserByUsername(credentials.getUsername());
+            User user = (User) authService.loadUserByUsername(credentials.getEmail());
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            credentials.getUsername(),
+                            credentials.getEmail(),
                             credentials.getPassword(),
                             user.getAuthorities()
                     )
@@ -55,18 +55,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult)
-                                                throws IOException, ServletException {
+            throws IOException {
         String token = JWT.create()
                 .withSubject(authResult.getName())
-                .withExpiresAt(
-    new Date(System.currentTimeMillis()+ SecurityConstants.EXPIRATION_TIME
-    ))
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SecurityConstants.SECRET));
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(new ObjectMapper().writeValueAsString(
-                new AuthenticationResponse(token)
+                new AuthenticationResponse(token, new UserDTO((User) authResult.getPrincipal()))
         ));
-
-
     }
+
 }

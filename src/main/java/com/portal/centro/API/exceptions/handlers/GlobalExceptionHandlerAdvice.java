@@ -1,6 +1,7 @@
-package com.portal.centro.API.apierror.handlers;
+package com.portal.centro.API.exceptions.handlers;
 
-import com.portal.centro.API.apierror.model.ApiError;
+import com.portal.centro.API.exceptions.NotFoundException;
+import com.portal.centro.API.model.ApiError;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -14,11 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
-public class NotValidExceptionHandlerAdvice {
+public class GlobalExceptionHandlerAdvice {
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    private ApiError handlerValidationException(
+    private ApiError handlerArgumentNotValidException(
             MethodArgumentNotValidException exception,
             HttpServletRequest request) {
 
@@ -31,6 +32,23 @@ public class NotValidExceptionHandlerAdvice {
         }
 
         return new ApiError(HttpStatus.BAD_REQUEST.value(), "validation error", request.getServletPath(), validationErrors);
+    }
+
+    @ExceptionHandler({NotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    private ApiError handlerGenericExceptionError(
+            Exception exception,
+            HttpServletRequest request) {
+
+        return new ApiError(HttpStatus.NOT_FOUND.value(), exception.getMessage(), request.getServletPath());
+    }
+
+    @ExceptionHandler({Exception.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    private ApiError handlerExceptionError(
+            Exception exception,
+            HttpServletRequest request) {
+        return new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage(), request.getServletPath());
     }
 
 }

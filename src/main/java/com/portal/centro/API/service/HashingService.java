@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bouncycastle.jcajce.provider.digest.SHA3;
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.stereotype.Component;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.time.LocalDate;
@@ -37,24 +38,6 @@ public class HashingService {
         return hashedData;
     }
 
-    public void callHashService() {
-        HashingService hashingService = new HashingService();
-
-        //MOCK
-        String username = "john.doe";
-        String data = "{\"username\": \"john.doe\", \"email\": \"john.doe@example.com\"}";
-
-        String hashKey = hashingService.generateHashKey(username);
-        System.out.println("Generated Hash Key: " + hashKey);
-
-        try {
-            String hashedData = hashingService.handleHash(data, hashKey);
-            System.out.println("Hashed Data: " + hashedData);
-        } catch (Exception e) {
-            System.err.println("Error hashing data: " + e.getMessage());
-        }
-
-    }
 }
 
 

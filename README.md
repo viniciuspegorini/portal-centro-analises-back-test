@@ -3,10 +3,9 @@
 
 
 ADD USER
-http://localhost:8085/api/v1/users
+http://localhost:8085/api/users
 ` {
   "name" : "Marcelo",
-  "username" : "marcelofalchi",
   "password" :  "falchizao",
   "email" : "marcelonavarro@gmail.com"
 }`
@@ -15,13 +14,13 @@ http://localhost:8085/api/v1/users
 LOGIN
 http://localhost:8085/api/login
 `{
-  "username" : "marcelofalchi",
+  "email" : "marcelonavarro@gmail.com",
   "password" :  "falchizao",
 }`
 
 
 ADD EQUIP
-http://localhost:8085/api/v1/equipments/
+http://localhost:8085/api/equipments/
 ` {
   "name" : "maquina1",
   "value_hour_utfpr" : 10.0,

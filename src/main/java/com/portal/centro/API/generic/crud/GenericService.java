@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class GenericService<T, ID> {
 
-    private final GenericRepository<T, ID> genericRepository;
+    public final GenericRepository<T, ID> genericRepository;
 
     public GenericService(GenericRepository<T, ID> genericRepository) {
         this.genericRepository = genericRepository;
@@ -22,5 +22,7 @@ public abstract class GenericService<T, ID> {
     public List<T> getAll() {
         return genericRepository.findAll();
     }
+
+    public T findOneById(ID id) { return genericRepository.findById(id).orElseThrow(); }
 
 }
