@@ -78,7 +78,7 @@ public class TechnicalReportService extends GenericService<TechnicalReport, Long
         }
     }
 
-    public ByteArrayInputStream generateReport(TechnicalReport report) {
+    public void generateReport(TechnicalReport report) throws Exception {
         Context context = new Context();
         context.setVariables(DataToMap(report));
 
@@ -91,7 +91,11 @@ public class TechnicalReportService extends GenericService<TechnicalReport, Long
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         renderer.createPDF(out);
 
-        return new ByteArrayInputStream(out.toByteArray());
+        FileResponse fileResponse = minioService.putObject((MultipartFile) new ByteArrayInputStream(out.toByteArray()), "central-de-analises",  "PDF");
+        report.setFileName(fileResponse.getFilename());
+        report.setContentType(fileResponse.getContentType());
+
+        super.save(report);
     }
 
     public Map<String, Object> DataToMap(TechnicalReport report) {
