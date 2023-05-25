@@ -5,11 +5,10 @@ import com.portal.centro.API.model.TechnicalReport;
 import com.portal.centro.API.service.TechnicalReportService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +39,12 @@ public class TechnicalReportController extends GenericController<TechnicalReport
     @GetMapping(value = "download/{id}")
     public  void downloadFile(@PathVariable("id") Long id, HttpServletResponse response) {
         technicalReportService.downloadFile(id, response);
+    }
+
+    @PostMapping(path = "text")
+    public ResponseEntity<?> saveTechnicalrReportText(@RequestBody TechnicalReport report) {
+        technicalReportService.generateReport(report);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

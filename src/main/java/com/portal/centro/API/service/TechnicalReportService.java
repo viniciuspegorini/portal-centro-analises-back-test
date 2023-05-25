@@ -12,27 +12,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.net.URLEncoder;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Slf4j
 public class TechnicalReportService extends GenericService<TechnicalReport, Long> {
 
+
     @Autowired
-    public TechnicalReportService(TechnicalReportRepository technicalReportRepository, MinioService minioService) {
+    public TechnicalReportService(TechnicalReportRepository technicalReportRepository, MinioService minioService, TemplateEngine templateEngine) {
         super(technicalReportRepository);
         this.technicalReportRepository = technicalReportRepository;
         this.minioService = minioService;
+        this.templateEngine = templateEngine;
     }
 
     private  final  TechnicalReportRepository technicalReportRepository;
     private  final MinioService minioService;
+    private TemplateEngine templateEngine;
 
 
     protected JpaRepository<TechnicalReport, Long> getRepository() {
@@ -71,6 +76,29 @@ public class TechnicalReportService extends GenericService<TechnicalReport, Long
                 }
             }
         }
+    }
+
+    public ByteArrayInputStream generateReport(TechnicalReport report) {
+        Context context = new Context();
+        context.setVariables(DataToMap(report));
+
+        String html = templateEngine.process("report", context);
+
+        ITextRenderer renderer = new ITextRenderer();
+        renderer.setDocumentFromString(html);
+        renderer.layout();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        renderer.createPDF(out);
+
+        return new ByteArrayInputStream(out.toByteArray());
+    }
+
+    public Map<String, Object> DataToMap(TechnicalReport report) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("num", report.getId());
+        map.put("reportDetails", report.getSolicitation());
+        return map;
     }
 
 }
