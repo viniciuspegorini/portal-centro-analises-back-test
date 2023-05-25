@@ -43,7 +43,12 @@ public class TechnicalReportController extends GenericController<TechnicalReport
 
     @PostMapping(path = "text")
     public ResponseEntity<?> saveTechnicalrReportText(@RequestBody TechnicalReport report) {
-        technicalReportService.generateReport(report);
+        try {
+            technicalReportService.generateReport(report);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
