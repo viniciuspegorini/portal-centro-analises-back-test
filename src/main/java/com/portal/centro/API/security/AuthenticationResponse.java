@@ -1,6 +1,6 @@
 package com.portal.centro.API.security;
 
-import com.portal.centro.API.dto.UserDTO;
+import com.portal.centro.API.dto.UserLoginDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class AuthenticationResponse {
 
     private String token;
-    private UserDTO user;
+    private UserLoginDTO user;
 
 }

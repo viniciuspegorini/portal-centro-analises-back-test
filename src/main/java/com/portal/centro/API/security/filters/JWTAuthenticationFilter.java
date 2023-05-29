@@ -3,7 +3,7 @@ package com.portal.centro.API.security.filters;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.portal.centro.API.dto.UserDTO;
+import com.portal.centro.API.dto.UserLoginDTO;
 import com.portal.centro.API.model.User;
 import com.portal.centro.API.security.AuthenticationResponse;
 import com.portal.centro.API.security.SecurityConstants;
@@ -62,7 +62,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(Algorithm.HMAC512(SecurityConstants.SECRET));
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(new ObjectMapper().writeValueAsString(
-                new AuthenticationResponse(token, new UserDTO((User) authResult.getPrincipal()))
+                new AuthenticationResponse(token, new UserLoginDTO((User) authResult.getPrincipal()))
         ));
     }
 
