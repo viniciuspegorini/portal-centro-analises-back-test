@@ -2,16 +2,14 @@ package com.portal.centro.API.dto;
 
 import com.portal.centro.API.enums.Type;
 import com.portal.centro.API.model.User;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDTO {
+public class UserLoginDTO {
 
-    public UserDTO(User user) {
+    public UserLoginDTO(User user) {
         this.displayName = user.getName();
         this.email = user.getEmail();
         this.role = user.getRole();
