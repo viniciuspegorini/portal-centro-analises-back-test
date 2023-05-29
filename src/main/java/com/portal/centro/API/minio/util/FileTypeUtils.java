@@ -4,8 +4,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 
-//A classe **FileTypeUtils** possui apenas um métrodo o ***getFileType()*** que recebe o arquivo e retorna o tipo de arquivo do mesmo.
-
 public  class FileTypeUtils {
     private final static String IMAGE_TYPE = "image/";
     private final static String AUDIO_TYPE = "audio/";
