@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -18,6 +19,6 @@ public class MultiPartFileList extends IModel {
 
     private String contentType;
 
-    @ManyToOne
-    private TechnicalReport technicalReport;
+//    @ManyToOne
+//    private TechnicalReport technicalReport;
 }

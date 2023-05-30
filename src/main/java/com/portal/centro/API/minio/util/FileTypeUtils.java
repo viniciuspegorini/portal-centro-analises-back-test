@@ -42,7 +42,7 @@ public  class FileTypeUtils {
             if (type.equalsIgnoreCase("doc") || type.equalsIgnoreCase("docx")
                     || type.equalsIgnoreCase("ppt") || type.equalsIgnoreCase("pptx")
                     || type.equalsIgnoreCase("xls") || type.equalsIgnoreCase("xlsx")
-                    || type.equalsIgnoreCase("zip") || type.equalsIgnoreCase("jar")) {
+                    || type.equalsIgnoreCase("zip") || type.equalsIgnoreCase("jar") || type.equalsIgnoreCase("pdf")) {
                 return APPLICATION_TYPE + type;
             }
             if (type.equalsIgnoreCase("txt")) {

@@ -19,6 +19,7 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,15 +48,18 @@ public class TechnicalReportService extends GenericService<TechnicalReport, Long
 
     public TechnicalReport save(TechnicalReport entity, List<MultipartFile> file) throws Exception {
 
+        List<MultiPartFileList> fileLists = new ArrayList<>();
+
         file.forEach((multipartFile) -> {
             String fileType = FileTypeUtils.getFileType(multipartFile);
             FileResponse fileResponse = minioService.putObject(multipartFile, "central-de-analises", fileType);
             MultiPartFileList fileList = new MultiPartFileList();
             fileList.setFileName(fileResponse.getFilename());
             fileList.setContentType(fileResponse.getContentType());
-            entity.getMultiPartFileLists().add(fileList);
+            fileLists.add(fileList);
         });
 
+        entity.setMultiPartFileLists(fileLists);
         return super.save(entity);
     }
 

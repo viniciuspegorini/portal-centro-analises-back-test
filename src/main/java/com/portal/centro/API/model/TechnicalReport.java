@@ -38,7 +38,8 @@ public class TechnicalReport extends IModel {
     @NotNull(message = "Parameter amountSamples is required.")
     private Integer amountSamples;
 
-    @OneToMany(mappedBy = "technicalReport")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "technical_report_id")
     private List<MultiPartFileList> multiPartFileLists; //adicionar coluna nova no banco
 
 }
