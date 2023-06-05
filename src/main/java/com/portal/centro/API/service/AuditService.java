@@ -20,7 +20,7 @@ public class AuditService extends GenericService<Audit, Long> {
         User user = userService.findSelfUser();
 
         if(user.getRole() == STUDENT) {
-            return auditRepository.findALlBySolicitation_CreatedBy(user);
+            return auditRepository.findAllBySolicitation_CreatedBy(user);
         } else {
             return super.getAll();
         }

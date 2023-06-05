@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface AuditRepository extends GenericRepository<Audit, Long> {
 
-    List<Audit> findALlBySolicitation_CreatedBy(User user);
+    List<Audit> findAllBySolicitation_CreatedBy(User user);
 
 }
