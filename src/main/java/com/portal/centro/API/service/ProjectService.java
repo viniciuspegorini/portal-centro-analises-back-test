@@ -1,14 +1,58 @@
 package com.portal.centro.API.service;
 
+import com.portal.centro.API.dto.ProjectDTO;
+import com.portal.centro.API.dto.RetrieveProjectInfo;
+import com.portal.centro.API.dto.TeacherDTO;
 import com.portal.centro.API.generic.crud.GenericRepository;
 import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.model.Project;
+import com.portal.centro.API.model.User;
+import com.portal.centro.API.repository.ProjectRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService extends GenericService<Project, Long> {
 
-    public ProjectService(GenericRepository<Project, Long> genericRepository) {
-        super(genericRepository);
+    private final UserService userService;
+    private final ProjectRepository projectRepository;
+
+    public ProjectService(GenericRepository<Project, Long> genericRepository , UserService userService, ProjectRepository projectRepository) {
+        super(projectRepository);
+
+        this.projectRepository = projectRepository;
+        this.userService = userService;
+    }
+
+    public ResponseEntity getAllProjects()  {
+        User user = userService.findSelfUser();
+        List<Project> projects = projectRepository.findAllByStudentsContains(user);
+
+        RetrieveProjectInfo info = new RetrieveProjectInfo();
+        TeacherDTO teacher = TeacherDTO.builder().build();
+
+        if(!projects.isEmpty()) {
+            teacher = TeacherDTO.builder()
+                    .nome(projects.get(0).getTeacher().getName())
+                    .id(projects.get(0).getTeacher().getId())
+                    .email(projects.get(0).getTeacher().getEmail())
+                    .build();
+        }
+
+        List<ProjectDTO> output = projects.stream().map(projectObject -> ProjectDTO.builder()
+                .id(projectObject.getId())
+                .description(projectObject.getDescription())
+                .subject(projectObject.getSubject())
+                .build()
+        ).collect(Collectors.toList());
+
+        info.setTeacherDTO(teacher);
+        info.setProjectDTOS(output);
+
+        return ResponseEntity.ok(info);
     }
 }
