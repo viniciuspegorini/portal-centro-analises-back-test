@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("users")
@@ -43,8 +45,20 @@ public class UserController extends GenericController<User, Long> {
         return ResponseEntity.ok(convertEntityToDto(userService.findSelfUser()));
     }
 
+    @GetMapping(path = "role/{role}")
+    public ResponseEntity<List<UserDto>> findUsersByRole(@PathVariable("role") String role) {
+        return ResponseEntity.ok(convertEntityListToDto(userService.findUsersByRole(role)));
+    }
+
     private UserDto convertEntityToDto(User user) {
         return modelMapper.map(user, UserDto.class);
+    }
+
+    private List<UserDto> convertEntityListToDto(List<User> users) {
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User user : users)
+            userDtos.add(convertEntityToDto(user));
+        return userDtos;
     }
 
 }
