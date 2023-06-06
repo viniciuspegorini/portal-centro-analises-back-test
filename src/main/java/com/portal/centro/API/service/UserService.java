@@ -17,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -122,6 +124,16 @@ public class UserService extends GenericService<User, Long> {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findByEmail(principal.toString());
         return user;
+    }
+
+    public List<User> findUsersByRole(@PathVariable("role") String role) {
+        Type type;
+        try {
+            type = Type.valueOf(role);
+        } catch (Exception e) {
+            throw new RuntimeException("Role informada não existe.");
+        }
+        return userRepository.findAllByRole(type);
     }
 
 }
