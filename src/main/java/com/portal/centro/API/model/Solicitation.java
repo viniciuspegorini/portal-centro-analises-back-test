@@ -17,6 +17,10 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "solicitation")
 public class Solicitation extends IModel {
 
+    @ManyToOne
+    @JoinColumn(name = "creator_id")
+    private User createdBy;
+
     @NotNull(message = "Equipment must not be null")
     @OneToOne
     @JoinColumn(name = "equipment_id")
@@ -39,5 +43,4 @@ public class Solicitation extends IModel {
 
     @Enumerated(value = EnumType.STRING)
     private TypeUser typeUser;
-
 }
