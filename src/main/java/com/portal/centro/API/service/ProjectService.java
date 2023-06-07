@@ -8,10 +8,8 @@ import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.model.Project;
 import com.portal.centro.API.model.User;
 import com.portal.centro.API.repository.ProjectRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +35,7 @@ public class ProjectService extends GenericService<Project, Long> {
 
         if(!projects.isEmpty()) {
             teacher = TeacherDTO.builder()
-                    .nome(projects.get(0).getTeacher().getName())
+                    .name(projects.get(0).getTeacher().getName())
                     .id(projects.get(0).getTeacher().getId())
                     .email(projects.get(0).getTeacher().getEmail())
                     .build();
