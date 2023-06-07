@@ -18,9 +18,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -60,6 +60,24 @@ public class UserService extends GenericService<User, Long> {
         this.emailCodeService.createCode(user);
 
         return user;
+    }
+
+    public User saveAdmin(User requestBody) throws Exception {
+        encryptPassword(requestBody);
+        requestBody.setPermissions(utilsService.getPermissionsByRole(requestBody.getRole()));
+        this.validate(requestBody);
+        User user = super.save(requestBody);
+        this.emailCodeService.createCode(user);
+
+        return user;
+    }
+
+    public User editUserRole(Type role, Long id) throws Exception {
+        Optional<User> user = userRepository.findById(id);
+
+        user.get().setRole(role);
+
+        return super.save(user.get());
     }
 
     private void validate(User user) throws Exception {
@@ -135,5 +153,4 @@ public class UserService extends GenericService<User, Long> {
         }
         return userRepository.findAllByRole(type);
     }
-
 }

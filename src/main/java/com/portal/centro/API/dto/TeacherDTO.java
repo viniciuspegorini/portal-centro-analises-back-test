@@ -9,6 +9,6 @@ import lombok.Setter;
 @Builder
 public class TeacherDTO {
     Long id;
-    String nome;
+    String name;
     String email;
 }
