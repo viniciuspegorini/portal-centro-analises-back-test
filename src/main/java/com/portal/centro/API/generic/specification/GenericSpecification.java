@@ -9,7 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -47,20 +47,25 @@ public class GenericSpecification<T> implements Specification<T> {
                 return builder.like(root.get(criteria.getKey()), "%" + criteria.getValue() + "%");
             case DATE:
                 if (criteria.getValue().toString().length() == 8) {
-                    return builder.equal(root.get(criteria.getKey()), LocalDate.of(
-                            Integer.parseInt(criteria.getValue().toString().substring(4)),
-                            Integer.parseInt(criteria.getValue().toString().substring(2,4)),
-                            Integer.parseInt(criteria.getValue().toString().substring(0,2))));
-                }else {
                     return builder.between(root.get(criteria.getKey()),
-                            LocalDate.of(
+                            LocalDateTime.of(
                                     Integer.parseInt(criteria.getValue().toString().substring(4,8)),
                                     Integer.parseInt(criteria.getValue().toString().substring(2,4)),
-                                    Integer.parseInt(criteria.getValue().toString().substring(0,2))),
-                            LocalDate.of(
+                                    Integer.parseInt(criteria.getValue().toString().substring(0,2)),00,00,00),
+                            LocalDateTime.of(
+                                    Integer.parseInt(criteria.getValue().toString().substring(4,8)),
+                                    Integer.parseInt(criteria.getValue().toString().substring(2,4)),
+                                    Integer.parseInt(criteria.getValue().toString().substring(0,2)),23,59,59));
+                }else {
+                    return builder.between(root.get(criteria.getKey()),
+                            LocalDateTime.of(
+                                    Integer.parseInt(criteria.getValue().toString().substring(4,8)),
+                                    Integer.parseInt(criteria.getValue().toString().substring(2,4)),
+                                    Integer.parseInt(criteria.getValue().toString().substring(0,2)),00,00,00),
+                            LocalDateTime.of(
                                     Integer.parseInt(criteria.getValue().toString().substring(12,16)),
                                     Integer.parseInt(criteria.getValue().toString().substring(10,12)),
-                                    Integer.parseInt(criteria.getValue().toString().substring(8,10))));
+                                    Integer.parseInt(criteria.getValue().toString().substring(8,10)),23,59,59));
                 }
             default:
                 return null;
