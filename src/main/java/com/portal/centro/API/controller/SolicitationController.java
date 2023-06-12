@@ -6,6 +6,7 @@ import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.generic.response.GenericResponse;
 import com.portal.centro.API.model.Solicitation;
 import com.portal.centro.API.service.SolicitationService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +26,11 @@ public class SolicitationController extends GenericController<Solicitation, Long
     public GenericResponse approve(@PathVariable Long id, @RequestBody @Valid String status) throws Exception {
         this.solicitationService.updateStatus(id, SolicitationStatus.valueOf(status));
         return new GenericResponse("Status atualizado.");
+    }
+
+    @GetMapping("/pending")
+    public ResponseEntity getPending() throws Exception {
+        return ResponseEntity.ok(solicitationService.getPending());
     }
 
 }
