@@ -29,8 +29,13 @@ public class SolicitationController extends GenericController<Solicitation, Long
     }
 
     @GetMapping("/pending")
-    public ResponseEntity getPending() throws Exception {
+    public ResponseEntity getPending() {
         return ResponseEntity.ok(solicitationService.getPending());
+    }
+
+    @PostMapping("/approve/{id}")
+    public ResponseEntity aproveSolicitation(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitationService.approveLinkTo(id));
     }
 
 }

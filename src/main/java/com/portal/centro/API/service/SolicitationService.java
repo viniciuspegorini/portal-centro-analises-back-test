@@ -1,15 +1,16 @@
 package com.portal.centro.API.service;
 
 import com.portal.centro.API.enums.SolicitationStatus;
-import com.portal.centro.API.generic.crud.GenericRepository;
 import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.model.Audit;
 import com.portal.centro.API.model.Solicitation;
 import com.portal.centro.API.model.User;
 import com.portal.centro.API.repository.SolicitationRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SolicitationService extends GenericService<Solicitation, Long> {
@@ -57,5 +58,12 @@ public class SolicitationService extends GenericService<Solicitation, Long> {
         User user = userService.findSelfUser();
 
         return solicitationRepository.findALLByCreatedByAndStatus(user, SolicitationStatus.PENDING_ADVISOR);
+    }
+
+    public ResponseEntity approveLinkTo(Long id) { //Professor
+        Optional<Solicitation> solicitation = solicitationRepository.findById(id);
+        solicitation.get().setStatus(SolicitationStatus.PENDING_LAB);
+
+        return ResponseEntity.ok(solicitationRepository.save(solicitation.get()));
     }
 }
