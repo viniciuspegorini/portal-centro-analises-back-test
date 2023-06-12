@@ -5,10 +5,9 @@ import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.model.Project;
 import com.portal.centro.API.service.ProjectService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("project")
@@ -24,5 +23,10 @@ public class ProjectController extends GenericController<Project, Long> {
     @GetMapping(value = "all")
     public ResponseEntity getAllProjects() {
         return projectService.getAllProjects();
+    }
+
+    @Override
+    public ResponseEntity save(@RequestBody @Valid Project requestBody) throws Exception {
+        return ResponseEntity.ok(projectService.save(requestBody));
     }
 }

@@ -53,4 +53,16 @@ public class ProjectService extends GenericService<Project, Long> {
 
         return ResponseEntity.ok(info);
     }
+
+    @Override
+    public Project save(Project requestBody) throws Exception {
+        Project project = new Project();
+        try{
+            project = projectRepository.save(requestBody);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return project;
+    }
 }
