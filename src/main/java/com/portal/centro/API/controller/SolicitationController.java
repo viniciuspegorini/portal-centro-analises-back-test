@@ -34,8 +34,13 @@ public class SolicitationController extends GenericController<Solicitation, Long
     }
 
     @PostMapping("/approve/{id}")
-    public ResponseEntity aproveSolicitation(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitationService.approveLinkTo(id));
+    public ResponseEntity aproveProfessorSolicitation(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitationService.approveProfessor(id));
+    }
+
+    @PostMapping("/approvelab/{id}")
+    public ResponseEntity aproveLabSolicitation(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitationService.approveLab(id));
     }
 
 }

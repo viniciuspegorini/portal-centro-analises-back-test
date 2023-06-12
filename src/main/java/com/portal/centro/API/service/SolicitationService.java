@@ -60,9 +60,16 @@ public class SolicitationService extends GenericService<Solicitation, Long> {
         return solicitationRepository.findALLByCreatedByAndStatus(user, SolicitationStatus.PENDING_ADVISOR);
     }
 
-    public ResponseEntity approveLinkTo(Long id) { //Professor
+    public ResponseEntity approveProfessor(Long id) { //Professor
         Optional<Solicitation> solicitation = solicitationRepository.findById(id);
         solicitation.get().setStatus(SolicitationStatus.PENDING_LAB);
+
+        return ResponseEntity.ok(solicitationRepository.save(solicitation.get()));
+    }
+
+    public ResponseEntity approveLab(Long id) { //Lab
+        Optional<Solicitation> solicitation = solicitationRepository.findById(id);
+        solicitation.get().setStatus(SolicitationStatus.PENDING_SAMPLE);
 
         return ResponseEntity.ok(solicitationRepository.save(solicitation.get()));
     }
