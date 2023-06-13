@@ -43,4 +43,6 @@ public class Equipment {
     @Column(name="value_sample_pf_pj")
     private BigDecimal valueSamplePfPj;
 
+    @Column(name="form")
+    private String form;
 }
