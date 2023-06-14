@@ -6,10 +6,10 @@ import com.portal.centro.API.generic.base.IModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -43,4 +43,6 @@ public class Solicitation extends IModel {
 
     @Enumerated(value = EnumType.STRING)
     private TypeUser typeUser;
+
+    private BigDecimal value;
 }

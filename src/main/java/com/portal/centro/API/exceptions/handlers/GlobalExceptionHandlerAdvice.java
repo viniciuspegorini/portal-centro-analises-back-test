@@ -1,6 +1,7 @@
 package com.portal.centro.API.exceptions.handlers;
 
 import com.portal.centro.API.exceptions.NotFoundException;
+import com.portal.centro.API.exceptions.ValidationException;
 import com.portal.centro.API.model.ApiError;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -34,12 +35,19 @@ public class GlobalExceptionHandlerAdvice {
         return new ApiError(HttpStatus.BAD_REQUEST.value(), "validation error", request.getServletPath(), validationErrors);
     }
 
-    @ExceptionHandler({NotFoundException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    private ApiError handlerGenericExceptionError(
+    @ExceptionHandler({ValidationException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    private ApiError handlerValidationExceptionError(
             Exception exception,
             HttpServletRequest request) {
+        return new ApiError(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), request.getServletPath());
+    }
 
+    @ExceptionHandler({NotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    private ApiError handlerNotFoundExceptionError(
+            Exception exception,
+            HttpServletRequest request) {
         return new ApiError(HttpStatus.NOT_FOUND.value(), exception.getMessage(), request.getServletPath());
     }
 
