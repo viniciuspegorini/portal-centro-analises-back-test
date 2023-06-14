@@ -1,6 +1,7 @@
 package com.portal.centro.API.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.portal.centro.API.enums.Type;
 import com.portal.centro.API.validations.user.UserUniqueConstraint;
 import lombok.*;
@@ -44,6 +45,7 @@ public class User implements UserDetails {
 
     @NotNull(message = "Parameter password is required.")
     @Size(min = 6, max = 254)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     private Boolean status;
