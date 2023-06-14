@@ -11,6 +11,7 @@ import com.portal.centro.API.repository.ProjectRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +25,15 @@ public class ProjectService extends GenericService<Project, Long> {
 
         this.projectRepository = projectRepository;
         this.userService = userService;
+    }
+
+    public ResponseEntity linkUserToProject(Long studentId, Project linkTo) {
+        Optional<Project> project = projectRepository.findById(linkTo.getId());
+
+        User student = userService.findOneById(studentId);
+        project.get().getStudents().add(student);
+
+        return ResponseEntity.ok(projectRepository.save(project.get()));
     }
 
     public ResponseEntity getAllProjects()  {
