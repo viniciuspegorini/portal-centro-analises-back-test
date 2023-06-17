@@ -1,10 +1,12 @@
 package com.portal.centro.API.generic.crud;
 
+import com.portal.centro.API.exceptions.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class GenericService<T, ID> {
 
@@ -35,6 +37,12 @@ public abstract class GenericService<T, ID> {
         return genericRepository.findAll(specification, pageRequest);
     }
 
-    public T findOneById(ID id) { return genericRepository.findById(id).orElseThrow(); }
+    public T findOneById(ID id) {
+        Optional<T> optional = genericRepository.findById(id);
+        if (optional.isPresent())
+            return optional.get();
+
+        throw new NotFoundException("Nenhum registro encontrado.");
+    }
 
 }
