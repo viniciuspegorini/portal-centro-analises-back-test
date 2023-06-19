@@ -4,6 +4,7 @@ import com.google.common.base.Joiner;
 import com.portal.centro.API.enums.SearchOperation;
 import com.portal.centro.API.generic.specification.GenericSpecification;
 import com.portal.centro.API.generic.specification.GenericSpecificationsBuilder;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -49,7 +50,7 @@ public abstract class GenericController<T, ID extends Serializable> {
     }
 
     @GetMapping("page")
-    public List<T> search(
+    public Page<T> search(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "order",required = false) String order,
@@ -64,7 +65,7 @@ public abstract class GenericController<T, ID extends Serializable> {
     }
 
     @GetMapping("search")
-    public List<T> search(
+    public Page<T> search(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "order",required = false) String order,

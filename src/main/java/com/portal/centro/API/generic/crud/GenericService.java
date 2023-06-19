@@ -1,6 +1,7 @@
 package com.portal.centro.API.generic.crud;
 
 import com.portal.centro.API.exceptions.NotFoundException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -28,12 +29,12 @@ public abstract class GenericService<T, ID> {
         return genericRepository.findAll();
     }
 
-    public List<T> page(PageRequest pageRequest) {
-        return genericRepository.findAll(pageRequest).getContent();
+    public Page<T> page(PageRequest pageRequest) {
+        return genericRepository.findAll(pageRequest);
     }
 
-    public List<T> search(Specification specification, PageRequest pageRequest) {
-        return genericRepository.findAll(specification, pageRequest).getContent();
+    public Page<T> search(Specification specification, PageRequest pageRequest) {
+        return genericRepository.findAll(specification, pageRequest);
     }
 
     public T findOneById(ID id) {

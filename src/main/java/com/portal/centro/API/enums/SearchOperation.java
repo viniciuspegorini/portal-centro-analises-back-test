@@ -3,7 +3,7 @@ package com.portal.centro.API.enums;
 public enum SearchOperation {
     EQUALITY, NEGATION, GREATER_THAN, LESS_THAN, LIKE, STARTS_WITH, ENDS_WITH, CONTAINS, DATE;
 
-    public static final String[] SIMPLE_OPERATION_SET = { ":", "!", ">", "<", "~", "-"};
+    public static final String[] SIMPLE_OPERATION_SET = { ":", "!", ">", "<", "~", "-","≈"};
 
     public static final String OR_PREDICATE_FLAG = "'";
 
@@ -32,6 +32,8 @@ public enum SearchOperation {
                 return LIKE;
             case '-':
                 return DATE;
+            case '≈':
+                return CONTAINS;
             default:
                 return null;
         }
