@@ -1,5 +1,6 @@
 package com.portal.centro.API.service;
 
+import com.portal.centro.API.dto.ChangePasswordDTO;
 import com.portal.centro.API.dto.EmailDto;
 import com.portal.centro.API.dto.RecoverPasswordDTO;
 import com.portal.centro.API.enums.Type;
@@ -118,6 +119,15 @@ public class UserService extends GenericService<User, Long> {
 
         updateUserNewPasswordByEmail(user, recoverPasswordDTO.getNewPassword());
         recoverPasswordService.getCodeSentByEmail().remove(recoverPasswordDTO.getEmail());
+        return new DefaultResponse(HttpStatus.OK.value(), "Senha alterada com sucesso.");
+    }
+
+    public DefaultResponse changePassword(ChangePasswordDTO changePasswordDTO) throws Exception {
+        User user = findSelfUser();
+        if (!passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword()))
+            return new DefaultResponse(HttpStatus.BAD_REQUEST.value(), "Senha atual inválida.");
+
+        updateUserNewPasswordByEmail(user, changePasswordDTO.getNewPassword());
         return new DefaultResponse(HttpStatus.OK.value(), "Senha alterada com sucesso.");
     }
 
