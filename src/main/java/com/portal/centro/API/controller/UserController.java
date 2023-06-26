@@ -45,6 +45,11 @@ public class UserController extends GenericController<User, Long> {
         return ResponseEntity.ok(convertEntityToDto(userService.findSelfUser()));
     }
 
+    @Override
+    public ResponseEntity update(@RequestBody User requestBody) throws Exception {
+        return super.update(requestBody);
+    }
+
     @GetMapping(path = "role/{role}")
     public ResponseEntity<List<UserDto>> findUsersByRole(@PathVariable("role") String role) {
         return ResponseEntity.ok(convertEntityListToDto(userService.findUsersByRole(role)));

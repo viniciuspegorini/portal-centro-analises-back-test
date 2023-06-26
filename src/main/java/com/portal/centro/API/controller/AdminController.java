@@ -40,6 +40,8 @@ public class AdminController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
+        role = role.replaceAll("\"", "");
+
         return ResponseEntity.ok(userService.editUserRole(Type.valueOf(role), id));
     }
 }
