@@ -1,6 +1,5 @@
 package com.portal.centro.API.service;
 
-import com.portal.centro.API.enums.Type;
 import com.portal.centro.API.exceptions.ValidationException;
 import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.model.StudentTeacher;
@@ -9,7 +8,6 @@ import com.portal.centro.API.repository.StudentTeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.List;
 
