@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface StudentTeacherRepository extends GenericRepository<StudentTeacher, Long> {
 
-    @Query(value = "Select st.student From student_teacher as st where st.teacher_id=:teacherId")
+    @Query(value = "Select st.student From student_teacher as st where st.teacher.id=:teacherId")
     List<User> listByTeacher(Long teacherId);
 
-    @Query(value = "Select st.teacher From student_teacher as st where st.student_id=:studentId")
+    @Query(value = "Select st.teacher From student_teacher as st where st.student.id=:studentId")
     User findByStudent(Long studentId);
 
     StudentTeacher findByStudentIdAndAproved(Long studentId, Boolean aproved);
