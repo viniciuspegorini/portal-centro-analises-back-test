@@ -1,6 +1,5 @@
 package com.portal.centro.API.controller;
 
-import com.portal.centro.API.dto.UserDto;
 import com.portal.centro.API.generic.crud.GenericController;
 import com.portal.centro.API.model.StudentTeacher;
 import com.portal.centro.API.model.User;

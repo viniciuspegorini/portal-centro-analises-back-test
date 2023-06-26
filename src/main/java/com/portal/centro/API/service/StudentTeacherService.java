@@ -9,6 +9,8 @@ import com.portal.centro.API.repository.StudentTeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -31,6 +33,7 @@ public class StudentTeacherService extends GenericService<StudentTeacher, Long> 
             throw new ValidationException("Este aluno já esta vinculado a um professor.");
         }
 
+        requestBody.setCreatedAt(LocalDate.now());
         StudentTeacher studentTeacher = super.save(requestBody);
 
         return studentTeacher;
