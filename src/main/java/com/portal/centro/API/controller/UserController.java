@@ -1,5 +1,6 @@
 package com.portal.centro.API.controller;
 
+import com.portal.centro.API.dto.ChangePasswordDTO;
 import com.portal.centro.API.dto.RecoverPasswordDTO;
 import com.portal.centro.API.dto.UserDto;
 import com.portal.centro.API.generic.crud.GenericController;
@@ -37,6 +38,12 @@ public class UserController extends GenericController<User, Long> {
     @PostMapping(path = "recover-password")
     public ResponseEntity recoverPassword(@RequestBody @Valid RecoverPasswordDTO recoverPasswordDTO) throws Exception {
         DefaultResponse defaultResponse = userService.recoverPassword(recoverPasswordDTO);
+        return ResponseEntity.status(defaultResponse.getHttpStatus()).body(defaultResponse);
+    }
+
+    @PostMapping(path = "change-password")
+    public ResponseEntity changePassword(@RequestBody @Valid ChangePasswordDTO changePasswordDTO) throws Exception {
+        DefaultResponse defaultResponse = userService.changePassword(changePasswordDTO);
         return ResponseEntity.status(defaultResponse.getHttpStatus()).body(defaultResponse);
     }
 
