@@ -57,7 +57,7 @@ public class SolicitationService extends GenericService<Solicitation, Long> {
     public List<Solicitation> getPending() {
         User user = userService.findSelfUser();
 
-        return solicitationRepository.findALLByCreatedByAndStatus(user, SolicitationStatus.PENDING_ADVISOR);
+        return solicitationRepository.findAllByCreatedByAndStatus(user, SolicitationStatus.PENDING_ADVISOR);
     }
 
     public ResponseEntity approveProfessor(Long id) { //Professor
