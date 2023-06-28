@@ -1,5 +1,6 @@
 package com.portal.centro.API.service;
 
+import com.portal.centro.API.enums.Type;
 import com.portal.centro.API.exceptions.ValidationException;
 import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.model.StudentTeacher;
@@ -15,11 +16,13 @@ import java.util.List;
 public class StudentTeacherService extends GenericService<StudentTeacher, Long> {
 
     private final StudentTeacherRepository studentTeacherRepository;
+    private final UserService userService;
 
     @Autowired
     public StudentTeacherService(
-            StudentTeacherRepository studentTeacherRepository) {
+            StudentTeacherRepository studentTeacherRepository, UserService userService) {
         super(studentTeacherRepository);
+        this.userService = userService;
         this.studentTeacherRepository = studentTeacherRepository;
     }
 
@@ -37,12 +40,22 @@ public class StudentTeacherService extends GenericService<StudentTeacher, Long> 
         return studentTeacher;
     }
 
-    public List<User> listByTeacher(Long teacherId) {
-        return studentTeacherRepository.listByTeacher(teacherId);
+    public List<StudentTeacher> listByTeacher(Long teacherId) {
+        return studentTeacherRepository.listByTeacherWhere(teacherId);
     }
 
-    public User findByStudent(Long studentId) {
-        return studentTeacherRepository.findByStudent(studentId);
+    public List<StudentTeacher> findByStudent(Long studentId) {
+        return studentTeacherRepository.findByStudentWhere(studentId);
+    }
+
+    public List<StudentTeacher> getAllByUser() {
+        User user = userService.findSelfUser();
+
+        if(user.getRole() == Type.PROFESSOR) {
+            return studentTeacherRepository.listByTeacherWhere(user.getId());
+        } else {
+            return studentTeacherRepository.findByStudentWhere(user.getId());
+        }
     }
 
 }
