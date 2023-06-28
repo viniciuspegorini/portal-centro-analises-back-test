@@ -1,6 +1,8 @@
 package com.portal.centro.API.service;
 
 import com.portal.centro.API.enums.SolicitationStatus;
+import com.portal.centro.API.enums.Type;
+import com.portal.centro.API.exceptions.ValidationException;
 import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.model.Audit;
 import com.portal.centro.API.model.Solicitation;
@@ -9,7 +11,9 @@ import com.portal.centro.API.repository.SolicitationRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -57,7 +61,16 @@ public class SolicitationService extends GenericService<Solicitation, Long> {
     public List<Solicitation> getPending() {
         User user = userService.findSelfUser();
 
-        return solicitationRepository.findAllByCreatedByAndStatus(user, SolicitationStatus.PENDING_ADVISOR);
+        if (Objects.equals(user.getRole(), Type.STUDENT) || Objects.equals(user.getRole(), Type.EXTERNAL))
+            throw new ValidationException("Você não possui permissão para acessar este recurso.");
+
+        if (Objects.equals(user.getRole(), Type.PROFESSOR))
+            return solicitationRepository.findAllByProject_TeacherAndStatus(user, SolicitationStatus.PENDING_ADVISOR);
+
+        if (Objects.equals(user.getRole(), Type.ADMIN))
+            return solicitationRepository.findAllByStatus(SolicitationStatus.PENDING_LAB);
+
+        return new ArrayList<>();
     }
 
     public ResponseEntity approveProfessor(Long id) { //Professor

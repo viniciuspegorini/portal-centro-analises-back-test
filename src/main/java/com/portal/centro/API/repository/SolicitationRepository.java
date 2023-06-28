@@ -11,5 +11,8 @@ import java.util.List;
 @Repository
 public interface SolicitationRepository extends GenericRepository<Solicitation, Long> {
 
-    List<Solicitation> findAllByCreatedByAndStatus(User user, SolicitationStatus status);
+    List<Solicitation> findAllByProject_TeacherAndStatus(User user, SolicitationStatus status);
+
+    List<Solicitation> findAllByStatus(SolicitationStatus status);
+
 }
