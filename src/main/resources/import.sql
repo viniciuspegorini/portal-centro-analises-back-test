@@ -19,6 +19,7 @@ INSERT INTO USERS (email, name, password, role) values ('fernanda@gmail.com', 'F
 INSERT INTO USERS (email, name, password, role) values ('cathula@gmail.com', 'Cathula', '$2a$10$ze2T2cQAxRjql2kXEwzSZux4UMTlt/4bP.Ma/oTdekyNOqpWAUB9C', 1);
 INSERT INTO USERS (email, name, password, role) values ('external@gmail.com', 'External', '$2a$10$ze2T2cQAxRjql2kXEwzSZux4UMTlt/4bP.Ma/oTdekyNOqpWAUB9C', 2);
 INSERT INTO USERS (email, name, password, role) values ('lab@gmail.com', 'Lab', '$2a$10$ze2T2cQAxRjql2kXEwzSZux4UMTlt/4bP.Ma/oTdekyNOqpWAUB9C', 3);
+INSERT INTO USERS (email, name, password, role) values ('teacher1@gmail.com', 'Teacher 1', '$2a$10$ze2T2cQAxRjql2kXEwzSZux4UMTlt/4bP.Ma/oTdekyNOqpWAUB9C', 0);
 
 -- Carga inicial equipamentos
 INSERT INTO equipment (name, value_hour_utfpr, value_hour_partner, value_sample_pf_pj) VALUES ('Cromatógrafo líquido de alta eficiência - HPLC (modelo LC920, Varian)', 11.50, 21.00, 115.00);

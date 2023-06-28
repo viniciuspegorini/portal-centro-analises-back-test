@@ -11,4 +11,7 @@ import java.util.List;
 public interface ProjectRepository extends GenericRepository<Project, Long> {
 
     List<Project> findAllByStudentsContains(User user);
+
+    List<Project> findAllByTeacher(User teacher);
+
 }
