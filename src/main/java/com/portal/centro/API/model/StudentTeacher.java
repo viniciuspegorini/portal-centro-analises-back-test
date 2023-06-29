@@ -4,6 +4,7 @@ import com.portal.centro.API.validations.user.UserUniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.cfg.context.Cascadable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "student_teacher")
-@UserUniqueConstraint
 public class StudentTeacher {
 
     @Id
@@ -21,13 +21,13 @@ public class StudentTeacher {
     private Long id;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "student_id")
+    @OneToOne
+    @JoinColumn(name = "student", referencedColumnName = "id")
     private User student;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
+    @OneToOne
+    @JoinColumn(name = "teacher", referencedColumnName = "id")
     private User teacher;
 
     @Column(name = "created_at")

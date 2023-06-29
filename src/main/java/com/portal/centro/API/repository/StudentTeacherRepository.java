@@ -6,16 +6,17 @@ import com.portal.centro.API.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.lang.annotation.Native;
 import java.util.List;
 
 @Repository
 public interface StudentTeacherRepository extends GenericRepository<StudentTeacher, Long> {
 
-    @Query(value = "Select st.student From student_teacher as st where st.teacher.id=:teacherId")
-    List<User> listByTeacher(Long teacherId);
+    @Query(nativeQuery = true,value ="Select * From student_teacher  where teacher=:teacherId")
+    List<StudentTeacher> listByTeacherWhere(Long teacherId);
 
-    @Query(value = "Select st.teacher From student_teacher as st where st.student.id=:studentId")
-    User findByStudent(Long studentId);
+    @Query(nativeQuery = true ,value = "Select * From student_teacher where student=:studentId")
+    List<StudentTeacher> findByStudentWhere(Long studentId);
 
     StudentTeacher findByStudentIdAndAproved(Long studentId, Boolean aproved);
 

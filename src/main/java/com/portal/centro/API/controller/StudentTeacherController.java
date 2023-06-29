@@ -24,13 +24,18 @@ public class StudentTeacherController extends GenericController<StudentTeacher, 
 
     // busca a lista de alunos pelo id do professor
     @GetMapping(path = "/listByTeacher/{idProfessor}")
-    public ResponseEntity<List<User>> listByTeacher(@PathVariable Long idProfessor){
+    public ResponseEntity<List<StudentTeacher>> listByTeacher(@PathVariable Long idProfessor){
         return ResponseEntity.ok(studentTeacherService.listByTeacher(idProfessor));
     }
 
     // busca o professor pelo id do aluno
     @GetMapping(path = "/findByStudent/{idAluno}")
-    public ResponseEntity<User> findByStudent(@PathVariable Long idAluno){
+    public ResponseEntity<List<StudentTeacher>> findByStudent(@PathVariable Long idAluno){
         return ResponseEntity.ok(studentTeacherService.findByStudent(idAluno));
+    }
+
+    @Override
+    public ResponseEntity getAll() throws Exception {
+        return ResponseEntity.ok(studentTeacherService.getAllByUser());
     }
 }
