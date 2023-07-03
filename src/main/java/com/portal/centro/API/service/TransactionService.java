@@ -6,6 +6,8 @@ import com.portal.centro.API.model.Transaction;
 import com.portal.centro.API.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TransactionService  extends GenericService<Transaction, Long> {
 
@@ -18,5 +20,9 @@ public class TransactionService  extends GenericService<Transaction, Long> {
 
     public Long getBalanceByUserId(Long id) {
         return transactionRepository.balanceByUserId(id);
+    }
+
+    public List<Transaction> getAllByUserId(Long id){
+       return transactionRepository.findAllByUser_Id(id);
     }
 }

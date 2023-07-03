@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("transaction")
@@ -36,6 +37,11 @@ public class TransactionController extends GenericController<Transaction, Long> 
     @GetMapping(path = "/getBalance/{id}")
     public ResponseEntity<Long> getBalanceByUserId(@PathVariable Long id){
         return ResponseEntity.ok(transactionService.getBalanceByUserId(id));
+    }
+
+    @GetMapping(path = "/findAllByUserId/{id}")
+    public ResponseEntity<List<Transaction>> findAllByUserId(@PathVariable Long id){
+        return ResponseEntity.ok(transactionService.getAllByUserId(id));
     }
 
 }
