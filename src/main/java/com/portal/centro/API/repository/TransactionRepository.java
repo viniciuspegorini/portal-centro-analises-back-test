@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 public interface TransactionRepository  extends GenericRepository<Transaction,Long> {
 
-    @Query(nativeQuery = true,value ="Select sum(case when type = 0 then value when type = 1 then -value  else 0 end) From transaction where user_id=:userId")
-    Long balanceByUserId(Long userId);
+    List<Transaction> findAllByUser_IdOrderByCreatedAtDesc(Long userId);
 
-    List<Transaction> findAllByUser_Id(Long userId);
+    @Query(nativeQuery = true, value = "select * from transaction order by user_id, created_at desc")
+    List<Transaction> findAllByOrderByUserCreatedAtDesc();
 
 }
