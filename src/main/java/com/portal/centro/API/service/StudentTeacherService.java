@@ -7,6 +7,7 @@ import com.portal.centro.API.model.StudentTeacher;
 import com.portal.centro.API.model.User;
 import com.portal.centro.API.repository.StudentTeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -44,6 +45,9 @@ public class StudentTeacherService extends GenericService<StudentTeacher, Long> 
         return studentTeacherRepository.listByTeacherWhere(teacherId);
     }
 
+    public List<User> listStudentsByTeacher(Long teacherId) {
+        return studentTeacherRepository.listStudentsByTeacher(teacherId);
+    }
     public List<StudentTeacher> findByStudent(Long studentId) {
         return studentTeacherRepository.findByStudentWhere(studentId);
     }
