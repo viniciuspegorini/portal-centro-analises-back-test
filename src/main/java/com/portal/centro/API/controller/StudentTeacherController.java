@@ -22,10 +22,16 @@ public class StudentTeacherController extends GenericController<StudentTeacher, 
         this.studentTeacherService = studentTeacherService;
     }
 
-    // busca a lista de alunos pelo id do professor
+    // busca a lista de VINCULOS pelo id do professor
     @GetMapping(path = "/listByTeacher/{idProfessor}")
     public ResponseEntity<List<StudentTeacher>> listByTeacher(@PathVariable Long idProfessor){
         return ResponseEntity.ok(studentTeacherService.listByTeacher(idProfessor));
+    }
+
+    // busca a lista de ALUNOS pelo id do professor
+    @GetMapping(path = "/listStudentsByTeacher/{idProfessor}")
+    public ResponseEntity<List<User>> listStudentsByTeacher(@PathVariable Long idProfessor){
+        return ResponseEntity.ok(studentTeacherService.listStudentsByTeacher(idProfessor));
     }
 
     // busca o professor pelo id do aluno
