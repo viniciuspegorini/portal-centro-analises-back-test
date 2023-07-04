@@ -1,5 +1,6 @@
 package com.portal.centro.API.model;
 
+import com.portal.centro.API.enums.SolicitationProjectNature;
 import com.portal.centro.API.enums.SolicitationStatus;
 import com.portal.centro.API.enums.TypeUser;
 import com.portal.centro.API.generic.base.IModel;
@@ -40,6 +41,12 @@ public class Solicitation extends IModel {
 
     @Enumerated
     private SolicitationStatus status;
+
+    @Enumerated(value = EnumType.STRING)
+    @NotNull(message = "Project nature must not be null")
+    private SolicitationProjectNature projectNature;
+
+    private String otherProjectNature;
 
     @Enumerated(value = EnumType.STRING)
     private TypeUser typeUser;

@@ -1,5 +1,14 @@
 package com.portal.centro.API.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.portal.centro.API.enums.SolicitationProjectNature;
 import com.portal.centro.API.enums.SolicitationStatus;
 import com.portal.centro.API.enums.Type;
 import com.portal.centro.API.exceptions.ValidationException;
@@ -8,13 +17,6 @@ import com.portal.centro.API.model.Audit;
 import com.portal.centro.API.model.Solicitation;
 import com.portal.centro.API.model.User;
 import com.portal.centro.API.repository.SolicitationRepository;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class SolicitationService extends GenericService<Solicitation, Long> {
@@ -23,7 +25,8 @@ public class SolicitationService extends GenericService<Solicitation, Long> {
     private final UserService userService;
     private final SolicitationRepository solicitationRepository;
 
-    public SolicitationService(SolicitationRepository solicitationRepository, AuditService auditService, UserService userService) {
+    public SolicitationService(SolicitationRepository solicitationRepository, AuditService auditService,
+            UserService userService) {
         super(solicitationRepository);
         this.solicitationRepository = solicitationRepository;
         this.auditService = auditService;
@@ -32,6 +35,11 @@ public class SolicitationService extends GenericService<Solicitation, Long> {
 
     @Override
     public Solicitation save(Solicitation requestBody) throws Exception {
+        if (requestBody.getProjectNature().equals(SolicitationProjectNature.OTHER)
+                && (requestBody.getOtherProjectNature() == null || requestBody.getOtherProjectNature().isEmpty())) {
+            throw new ValidationException(
+                    "O campo 'Outra natureza de projeto' deve ser preenchido quando a natureza do projeto for 'Outro'.");
+        }
 
         requestBody.setCreatedBy(userService.findSelfUser());
 
@@ -73,14 +81,14 @@ public class SolicitationService extends GenericService<Solicitation, Long> {
         return new ArrayList<>();
     }
 
-    public ResponseEntity approveProfessor(Long id) { //Professor
+    public ResponseEntity approveProfessor(Long id) { // Professor
         Optional<Solicitation> solicitation = solicitationRepository.findById(id);
         solicitation.get().setStatus(SolicitationStatus.PENDING_LAB);
 
         return ResponseEntity.ok(solicitationRepository.save(solicitation.get()));
     }
 
-    public ResponseEntity approveLab(Long id) { //Lab
+    public ResponseEntity approveLab(Long id) { // Lab
         Optional<Solicitation> solicitation = solicitationRepository.findById(id);
         solicitation.get().setStatus(SolicitationStatus.PENDING_SAMPLE);
 
