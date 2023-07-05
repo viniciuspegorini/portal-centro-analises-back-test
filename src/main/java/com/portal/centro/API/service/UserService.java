@@ -3,12 +3,14 @@ package com.portal.centro.API.service;
 import com.portal.centro.API.dto.ChangePasswordDTO;
 import com.portal.centro.API.dto.EmailDto;
 import com.portal.centro.API.dto.RecoverPasswordDTO;
+import com.portal.centro.API.enums.TransactionType;
 import com.portal.centro.API.enums.Type;
 import com.portal.centro.API.exceptions.NotFoundException;
 import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.model.RecoverPassword;
 import com.portal.centro.API.model.SendEmailCodeRecoverPassword;
 import com.portal.centro.API.model.User;
+import com.portal.centro.API.model.UserBalance;
 import com.portal.centro.API.repository.UserRepository;
 import com.portal.centro.API.responses.DefaultResponse;
 import com.portal.centro.API.utils.DateTimeUtil;
@@ -19,6 +21,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -163,4 +167,22 @@ public class UserService extends GenericService<User, Long> {
         }
         return userRepository.findAllByRole(type);
     }
+
+    public UserBalance updateBalance(Long userId, TransactionType transactionType, BigDecimal value) throws Exception {
+        User user = findOneById(userId);
+        if (Objects.isNull(user))
+            throwExceptionUserNotFound();
+        BigDecimal balance = Objects.nonNull(user.getBalance()) ? user.getBalance() : BigDecimal.ZERO;
+        UserBalance userBalance = new UserBalance();
+        userBalance.setOld(balance);
+        switch (transactionType) {
+            case DEPOSIT -> balance = balance.add(value);
+            case WITHDRAW -> balance = balance.subtract(value);
+        }
+        userBalance.setCurrent(balance);
+        user.setBalance(balance);
+        userRepository.save(user);
+        return userBalance;
+    }
+
 }
