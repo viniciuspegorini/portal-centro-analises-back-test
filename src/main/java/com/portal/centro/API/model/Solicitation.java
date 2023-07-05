@@ -36,7 +36,7 @@ public class Solicitation extends IModel {
     @NotBlank(message = "Description must not be empty")
     private String description;
 
-    @NotBlank(message = "Fields must not be blank")
+    @NotNull(message = "Fields must not be null")
     private String fields;
 
     @Enumerated
