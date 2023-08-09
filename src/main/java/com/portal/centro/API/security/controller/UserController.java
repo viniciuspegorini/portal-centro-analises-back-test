@@ -1,4 +1,4 @@
-package com.portal.centro.API.controller;
+package com.portal.centro.API.security.controller;
 
 import com.portal.centro.API.dto.RecoverPasswordDTO;
 import com.portal.centro.API.generic.crud.GenericController;
