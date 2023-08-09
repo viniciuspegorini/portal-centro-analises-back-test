@@ -1,6 +1,7 @@
 package com.portal.centro.API.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.portal.centro.API.enums.Type;
 import com.portal.centro.API.validations.user.UserUniqueConstraint;
 import lombok.*;
@@ -44,6 +45,7 @@ public class User implements UserDetails {
 
     @NotNull(message = "Parameter password is required.")
     @Size(min = 6, max = 254)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     private Boolean status;
@@ -76,7 +78,7 @@ public class User implements UserDetails {
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<>();
-        list.addAll(this.authorities);
+        list.addAll(this.permissions);
         return list;
     }
 
@@ -85,15 +87,9 @@ public class User implements UserDetails {
         return this.email;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Getter
-    @Setter
-    @JoinTable(name = "user_authorities",
-            joinColumns = @JoinColumn(
-                    name = "tb_user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "authority_id", referencedColumnName = "id"))
-    private List<Permission> authorities;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private List<Permission> permissions;
 
     @Override
     @Transient

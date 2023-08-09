@@ -10,6 +10,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Entity(name = "technical_report")
 @Data
@@ -28,15 +30,16 @@ public class TechnicalReport extends IModel {
     private Solicitation solicitation;
 
     @NotNull(message = "Parameter price is required.")
-    @NotBlank(message = "Price must not be empty.")
     private Float price;
 
     @NotNull(message = "Parameter amountHours is required.")
-    @NotBlank(message = "AmountHours must not be empty.")
     private Integer amountHours;
 
     @NotNull(message = "Parameter amountSamples is required.")
-    @NotBlank(message = "AmountSamples must not be empty.")
     private Integer amountSamples;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "technical_report_id")
+    private List<MultiPartFileList> multiPartFileLists; //adicionar coluna nova no banco
 
 }

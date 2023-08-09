@@ -1,16 +1,60 @@
 package com.portal.centro.API.security.controller;
 
+import com.portal.centro.API.enums.Type;
+import com.portal.centro.API.exceptions.ValidationException;
 import com.portal.centro.API.generic.crud.GenericController;
 import com.portal.centro.API.generic.crud.GenericService;
 import com.portal.centro.API.model.Transaction;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.portal.centro.API.model.User;
+import com.portal.centro.API.model.UserBalance;
+import com.portal.centro.API.service.TransactionService;
+import com.portal.centro.API.service.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("transaction")
 public class TransactionController extends GenericController<Transaction, Long> {
 
-    public TransactionController(GenericService<Transaction, Long> genericService) {
+    private final TransactionService transactionService;
+    private final UserService userService;
+
+    public TransactionController(GenericService<Transaction, Long> genericService, TransactionService transactionService, UserService userService) {
         super(genericService);
+        this.transactionService = transactionService;
+        this.userService = userService;
     }
+
+    @Override
+    public ResponseEntity save(@RequestBody @Valid Transaction requestBody) throws Exception {
+        User selfUser = userService.findSelfUser();
+        if (!Objects.equals(selfUser.getRole(), Type.ADMIN))
+            throw new ValidationException("Somente o administrador pode realizar esta ação.");
+        requestBody.setCreatedAt(LocalDateTime.now());
+        requestBody.setCreatedBy(selfUser);
+        UserBalance userBalance = userService.updateBalance(
+                requestBody.getUser().getId(),
+                requestBody.getType(),
+                requestBody.getValue()
+        );
+        requestBody.setOldBalance(userBalance.getOld());
+        requestBody.setCurrentBalance(userBalance.getCurrent());
+        return ResponseEntity.ok(transactionService.save(requestBody));
+    }
+
+    @Override
+    public ResponseEntity update(@RequestBody @Valid Transaction requestBody) {
+        throw new ValidationException("Não é possível atualizar uma transação, somente inseri-las.");
+    }
+
+    @Override
+    public ResponseEntity deleteById(Long aLong) {
+        throw new ValidationException("Não é possível excluir uma transação, somente inseri-las.");
+    }
+
 }

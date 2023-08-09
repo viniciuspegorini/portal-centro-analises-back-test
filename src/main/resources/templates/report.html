@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Relatório</title>
+    <style>
+        header, footer {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+        }
+        table th,
+        table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+        table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>DECLARAÇÃO th:text="${report.num}"</h1>
+</header>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Eu, pesquisador interno da Universidade Tecnológica Federal do Paraná, listado abaixo, declaro que o(s) projeto(s) descrito(s) na relação abaixo, utilizaram os equipamentos listados abaixo do LabMulti Central de Análises do Campus Pato Branco.
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reportDetails : ${details}">
+            <td th:text="${details.researcher}"></td>
+            <td th:text="${details.equipments}"></td>
+            <td th:text="${details.title}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <p>Copyright © 2023</p>
+</footer>
+</body>
+</html>
